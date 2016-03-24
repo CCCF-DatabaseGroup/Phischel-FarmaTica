@@ -2,6 +2,15 @@
 
 myApp.controller('mainController', function ($scope, $http) {
     $scope.userName = "";
+
+    $http.get('/home/getUserName/')
+            .success(function (result) {
+                console.log(result.UserId);
+                $scope.userName = result["UserId"];
+            }).error(function (data) {
+                console.log(data);
+    });
+
     $scope.userPassword = "";
     $scope.loginUser = function () {
         if ($scope.userName != "" && $scope.userPassword != "") {
@@ -12,6 +21,10 @@ myApp.controller('mainController', function ($scope, $http) {
                 $scope.value = result;
                 console.log(result);
                 console.log(result.Algo);
+                alert(result.Algo);
+                alert(encodeURIComponent("a"));
+                window.location = '/Home/Index' + '?a=' + encodeURIComponent("a");
+                //location.reload();
             }).error(function (data) {
                 console.log(data);
             });
