@@ -13,5 +13,12 @@ namespace Phisel_Farmatica.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public JsonResult getUserData(string userId,string userPassword)
+        {
+            var algo = new { Algo = "true" };
+            return Json(algo,JsonRequestBehavior.AllowGet);
+        }
     }
 }
