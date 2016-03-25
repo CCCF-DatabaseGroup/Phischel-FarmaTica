@@ -11,6 +11,18 @@ namespace Phisel_Farmatica.Controllers
         // GET: Product
         public ActionResult Index()
         {
+            if (HomeController.USUARIO_CLIENTE.Equals(Session[HomeController.TIPO_DE_USUARIO]))
+            {
+                return View("~/Views/Product/CompraProducto.cshtml");
+            }
+            else if (HomeController.USUARIO_DEPENDIENTE.Equals(Session[HomeController.TIPO_DE_USUARIO]))
+            {
+                return View("~/Views/Product/CompraProducto.cshtml");
+            }
+            else if (HomeController.USUARIO_ADMINISTRADOR.Equals(Session[HomeController.TIPO_DE_USUARIO]))
+            {
+                return View("~/Views/Product/AdministrarProductos.cshtml");
+            }
             return View();
         }
     }

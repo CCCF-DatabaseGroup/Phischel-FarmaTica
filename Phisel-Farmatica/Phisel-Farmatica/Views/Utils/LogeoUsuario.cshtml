@@ -1,0 +1,47 @@
+﻿<!-- Trigger the modal with a button -->
+<a href="#" id="Login_button" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user"></span> Ingresar o Registrarse</a>
+<!--Este boton esta oculto por defecto para dar paso al boton de "logeo"-->
+<a ng-click="logoutUser()" id="Logout_button" style="display:none;"><span class="glyphicon glyphicon-user"></span> Cerrar sesi&oacute;n</a>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Iniciar Sesi&oacute;n</h4>
+            </div>
+
+            <div class="modal-body">
+
+
+                <input ng-model="userName" class="login_component form-control center-block" placeholder="usuario o e-mail" id="Text1" type="text" />
+                <input ng-model="userPassword" type="password" class="login_component form-control center-block" placeholder="contraseña" id="Text1" type="text" />
+                <input ng-click="loginUser()" class="login_component btn btn-success center-block" id="Button1" type="button" value="Ingresar" />
+                <p class="login_message" style="color:#5a0000;">{{loginMessage}}</p>
+
+                <!-- Estos son los botones de seleccion de tipo de usuario, estan ocultos por pruebas--->
+                <div class="btn-group-vertical" data-toggle="buttons" style="width:100%;margin-left:auto;margin-right:auto;display:none;">
+                    <label style="width:180px;margin-left:auto;margin-right:auto;" class="btn btn-primary active">
+                        <input type="radio" name="options" id="option1" autocomplete="off" checked> Cliente
+                    </label>
+                    <label style="width:180px;margin-left:auto;margin-right:auto;" class="btn btn-primary">
+                        <input type="radio" name="options" id="option2" autocomplete="off"> Dependiente
+                    </label>
+                    <label style="width:180px;margin-left:auto;margin-right:auto;" class="btn btn-primary">
+                        <input type="radio" name="options" id="option3" autocomplete="off"> Administrador
+                    </label>
+                </div>
+                <br>
+                <!--Boton de registro de usuario-->
+                <a class="login_component btn btn-warning center-block" id="regitrador" href="/RegistrarUsuario" value="Registrarse" >Registrarse</a>
+
+            </div>
+            <div class="modal-footer">
+                <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
