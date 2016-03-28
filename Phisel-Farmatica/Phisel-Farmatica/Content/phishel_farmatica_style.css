@@ -1,59 +1,145 @@
-﻿
-body {
-    border-color: #ff9595;
+﻿/*
+    BugFix #1: descripcion, el navbar tapaba 
+    parte de la pantalla en algunas resoluciones de pantalla
+    Solucion: este bloque de codigo
+ */
+
+@media (max-width: 991px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin: 7.5px -15px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .navbar-text {
+        float: none;
+        margin: 15px 0;
+    }
+    /* since 3.1.0 */
+    .navbar-collapse.collapse.in { 
+        display: block!important;
+    }
+    .collapsing {
+        overflow: hidden!important;
+    }
 }
 
+
+/*BugFix #1 END;*/
+
+
+/*
+    Se setea el color de la barra de navegacion
+*/
 .navbar {
         background-color: #dd3c3c;
 }
 
-
+/*
+    Se setea el color del boton de colapso 
+*/
 .navbar-inverse .navbar-toggle {
     background-color: #dd3c3c;
     border-color: #ff9595;
 }
+
+/*
+    Se setea el color del boton de colapso 
+*/
 .navbar-inverse .navbar-toggle:enabled {
     background-color: #dd3c3c;
     border-color: #ff9595;
 }
 
+
+/*
+    El color de las letras de los hipervinculos de la barra de navegación se setean a un color mas
+    claro
+*/
 .navbar-inverse .navbar-nav > li > a{
     color: #ffd2d2;
 }
 
+
+/*
+    Se setea el color del boton de colapso cuando el puntero del mouse está sobre este
+*/
 .navbar-inverse .navbar-toggle:hover {
     background-color: #fa6e6e;
     border-color: #ff9595;
 }
 
+/*
+    Se setea el color del boton de colapso despues de ser oprimido
+*/
 .navbar-inverse .navbar-toggle::after {
     background-color: #fa6e6e;
     border-color: #ff9595;
 }
 
+
+/**
+    Se setea de color rojo claro la barra de navegacion de la pagina web
+*/
 .navbar-inverse{
     border-style: hidden;
     background-color: #dd3c3c;
 }
 
+/**
+    Define de un color claro el hiperenlace principal de la pagina 
+*/
 .navbar .navbar-brand {
         color: #ffdfdf;
 }
 
+
+/*
+    Setea el color del borde  boton de colapso de la barra de navegacion
+*/
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form{
     border-color: #b12727;
 }
 
+
+
+/*
+    En la ventana de logeo algunos elementos deben separarse verticalmente
+*/
 .login_component{
     margin-top: 3px;
     width:250px;
 }
+
+/*
+    Sirve para definir el tamanio de un formulario
+*/
 .formulario{
     max-width:580px;
     min-width:280px;
 }
 
-
+/*
+    Representa una seccion del formulario de registro de usuario
+*/
 .seccion_formulario{
     padding-top: 5px;
     padding-right:10px;
@@ -62,26 +148,139 @@ body {
     display:inline-table;
 }
 
-
+/*
+    Sirve para centrar botones
+*/
 .btn .btn-success > .boton_centrado{
     width:120px;
     margin-left: 0px;
 	margin-right: 0px;
 }
 
+/*
+    Animacion de color de item de la barra de navegacion
+*/
+.nav-item{
+    transition:background-color 0.5s;
+}
+
+/*
+    Cuando el cursor esta sobre un elemento de la barra de navegación cambia de color dicho elemento
+*/
 .nav-item:hover{
     background-color:#b12727;
 }
 
+
+/**
+    Color de elemento de barra de navegación seteado a color rojo oscuro
+*/
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus{
     background-color:#861111;
 }
 
-
+/**
+    El texto de padecimiento no es redimensionable, para que el usuario no dañe la interfaz
+*/
 #padecimiento{
     resize:none;
 }
-
+/*
+    El mensaje de error de logueo se setea en alieneamiento central, ademas de color rojo oscuro
+    y letra en negrita
+*/
 .login_message{
     text-align:center;
+    color:#5a0000;
+    font-weight:bold;
+}
+
+/*
+    Es el panel de navegacion en la seccion de productos
+*/
+.product_sidebar_panel{
+    top:50px;/*Es el ancho de la barra de navegacion*/
+    left:-280px;/*Es el lugar en donde se ocultara la barra*/
+    background-color:#ba2c2c;
+    width:300px;
+    height:100%;
+    position:fixed;
+    transition: left 1s,background-color 0.5s;
+
+}
+
+.product_sidebar_panel:hover{
+
+    background-color:#dd3c3c;
+    top:50px;/*Es el ancho de la barra de navegacion*/
+    left:0px;/*Es el lugar en donde se ocultara la barra*/
+}
+
+
+a:hover{
+    text-decoration: none;
+}
+
+a:visited{
+    text-decoration: none;
+}
+a:focus{
+    text-decoration: none;
+}
+
+
+.list-group-item{
+    transition:background-color 0.5s,color 0.5s;
+}
+
+a.list-group-item:hover, a.list-group-item:focus:hover{
+    background-color:#77ae3f;
+    color:#ffdfdf;
+}
+
+.panel-default > .panel-heading{
+    background-color:#dd3c3c;
+    color:#ffd2d2;
+    transition:background-color 0.5s,color 0.5s;
+}
+
+.panel-default > .panel-heading:hover{
+    background-color:#b12727;
+    color:#ffd2d2;
+}
+
+.product-element-grid{
+    width:250px;
+    height:250px;
+    border-style:solid;
+    border-color:#ffd2d2;
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.product-row{
+    max-width:1012px;
+    min-width:253px;
+}
+
+.product-column{
+    padding-top: 5px;
+    padding-right:10px;
+    width:255px;
+    height: 500px;
+    display:inline-table;
+}
+/*
+    Para la vista de edicion de productos
+*/
+.button-list{
+    min-width:130px;
+    max-width:490px;
+}
+
+.button-item{
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    width:160px;
 }

@@ -13,10 +13,12 @@ namespace Phisel_Farmatica.Controllers
     {
 
         /**
-        1: administrador
-        2: Doctor
-        3: Dependiente
-        4: cliente
+        0: Administrador Total
+        1: administrador De Phisel
+        2: administrador De Farmatica
+        3: Dependiente de Phisel
+        4: Dependiente de Farmatica
+        5: cliente
         */
 
         public const int USUARIO_ADMINISTRADOR = 1;

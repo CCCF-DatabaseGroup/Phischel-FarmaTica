@@ -1,0 +1,38 @@
+﻿<br />
+<!--Margin button 5px pues debajo de este irán los resultados-->
+<div class="panel-group" ng-controller="productController" style="margin-bottom:5px;">
+    <!--Productos de FarmaTica-->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#sucursal">Sucursal</a>
+            </h4>
+        </div>
+        <div id="sucursal" class="panel-collapse collapse">
+            <div class="list-group">
+                <a ng-repeat="sucursal in sucursales" class="list-group-item" data-toggle="collapse" href="#sucursal">
+                    {{sucursal.name}}
+                </a>
+            </div>
+            <div class="panel-footer"></div>
+        </div>
+    </div>
+
+
+    <!--Productos de FarmaTica-->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#product_type">Tipo De Producto</a>
+            </h4>
+        </div>
+        <div id="product_type" class="panel-collapse collapse">
+            <div class="list-group">
+                <a ng-repeat="tipo in tipo_producto" class="list-group-item" data-toggle="collapse" href="#product_type">
+                    {{tipo.name}}
+                </a>
+            </div>
+            <div class="panel-footer"></div>
+        </div>
+    </div>
+</div>

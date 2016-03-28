@@ -1,7 +1,7 @@
 ﻿<!-- Trigger the modal with a button -->
 <a href="#" id="Login_button" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user"></span> Ingresar o Registrarse</a>
 <!--Este boton esta oculto por defecto para dar paso al boton de "logeo"-->
-<a ng-click="logoutUser()" id="Logout_button" style="display:none;"><span class="glyphicon glyphicon-user"></span> Cerrar sesi&oacute;n</a>
+<a href="#" ng-click="logoutUser()" id="Logout_button" style="display:none;"><span class="glyphicon glyphicon-user"></span> Cerrar sesi&oacute;n</a>
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -19,7 +19,7 @@
                 <input ng-model="userName" class="login_component form-control center-block" placeholder="usuario o e-mail" id="Text1" type="text" />
                 <input ng-model="userPassword" type="password" class="login_component form-control center-block" placeholder="contraseña" id="Text1" type="text" />
                 <input ng-click="loginUser()" class="login_component btn btn-success center-block" id="Button1" type="button" value="Ingresar" />
-                <p class="login_message" style="color:#5a0000;">{{loginMessage}}</p>
+                <p class="login_message">{{loginMessage}}</p>
 
                 <!-- Estos son los botones de seleccion de tipo de usuario, estan ocultos por pruebas--->
                 <div class="btn-group-vertical" data-toggle="buttons" style="width:100%;margin-left:auto;margin-right:auto;display:none;">

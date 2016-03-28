@@ -3,7 +3,6 @@
 myApp.controller('mainController', function ($scope, $http) {
     $scope.userName = "";
     $scope.userPassword = "";
-
     $http.get('/Home/getUserName/')
             .success(function (result) {
                 if (result["UserId"] != null) {
@@ -28,7 +27,7 @@ myApp.controller('mainController', function ($scope, $http) {
                     document.getElementById("Login_button").style.display = "none";
                     document.getElementById("Logout_button").style.display = "block";
                     location.reload();
-                    
+
                 }
                 else {
                     $scope.loginMessage = "Constraseña o Usuario incorrectos";
@@ -55,25 +54,25 @@ myApp.controller('mainController', function ($scope, $http) {
     }
 
     $scope.logoutUser = function () {
-            $http.get('/Home/logoutUser/')
-            .success(function (result) {
-                console.log($scope.userName);
-                if (result["UserId"] == "") {
-                    document.getElementById("Login_button").style.display = "block";
-                    document.getElementById("Logout_button").style.display = "none";
-                    location.reload();
+        $http.get('/Home/logoutUser/')
+        .success(function (result) {
+            console.log($scope.userName);
+            if (result["UserId"] == "") {
+                document.getElementById("Login_button").style.display = "block";
+                document.getElementById("Logout_button").style.display = "none";
+                location.reload();
 
-                }
-                else {
-                    
-                    console.log("nope");
-                }
-                //window.location = '/Home/Index';
-            }).error(function (data) {
-                console.log(data);
-            });
-        }
-})
+            }
+            else {
+
+                console.log("nope");
+            }
+            //window.location = '/Home/Index';
+        }).error(function (data) {
+            console.log(data);
+        });
+    }
+});
 
 
 myApp.controller('registroController', function ($scope, $http) {
@@ -86,4 +85,15 @@ myApp.controller('registroController', function ($scope, $http) {
     
     
 
+});
+
+
+myApp.controller('productController',function ($scope, $http){
+    $scope.productos = [{ name: "Uno", quantity: 3 }, { name: "Dos", quantity: 6 }];
+    $scope.sucursales = [{ name: "Farmatica San Jose" }, { name: "Farmatica San Carlos" }];
+    $scope.tipo_producto  = [{ name: "Pastillas"}, { name: "Inyectables"}];
+    $scope.test= function (name, quantity) {
+        console.log(name);
+        console.log(quantity);
+    }
 });
