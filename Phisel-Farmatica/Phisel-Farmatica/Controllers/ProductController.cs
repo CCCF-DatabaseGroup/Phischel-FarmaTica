@@ -32,7 +32,7 @@ namespace Phisel_Farmatica.Controllers
             }
             if (HomeController.USUARIO_CLIENTE.Equals(Session[HomeController.RANGO_USUARIO]))
             {
-                return View("~/Views/Product/CompraProducto.cshtml");
+                return View();
             }
             else if (HomeController.USUARIO_DEPENDIENTE_FARMATICA.Equals(Session[HomeController.RANGO_USUARIO]))
             {

@@ -165,11 +165,11 @@ myApp.controller('productController', function ($scope, $http,$route,$location) 
             });
     };
 
-    $scope.seleccionarCategoria = function (categoria) {
-        console.log(categoria.Nombre);
-        $scope.categoriaProducto = categoria.Nombre;
+   
+
+    $scope.obtenerproductos = function () {
         $http.post('/Product/obtenerProducto', {
-            pSucursal: $scope.sucursalSeleccionada, pCategoria: categoria.Nombre
+            pSucursal: $scope.sucursalSeleccionada, pCategoria: $scope.categoriaProducto
         })
             .success(function (result) {
                 console.log(result)
@@ -177,14 +177,36 @@ myApp.controller('productController', function ($scope, $http,$route,$location) 
                 //
             }).error(function (data) {
                 console.log(data);
-        });
+            });
+    };
+
+    $scope.seleccionarCategoria = function (categoria,index) {
+        console.log(categoria.Nombre);
+        $scope.categoriaProducto = categoria.Nombre;
+        $scope.categoriaSeleccionada = index;
+        $scope.obtenerproductos();
+    };
+
+    $scope.getCategoriaClass = function (index) {
+        if (index == $scope.categoriaSeleccionada) {
+            return $scope.itemSeleccionado;
+        }
+        return $scope.itemNoSeleccionado;
     }
 
-    $scope.seleccionarSucursal = function (sucursal) {
+    $scope.seleccionarSucursal = function (sucursal,index) {
         console.log(sucursal);
         $scope.sucursalSeleccionada = sucursal.Nombre;
         console.log("dummy");
-        $scope.seleccionarCategoria($scope.categoriaProducto);
+        $scope.sucursalSeleccionadaIndex = index;
+        $scope.obtenerproductos();
+    };
+
+    $scope.getSucursalClass = function (index) {
+        if (index == $scope.sucursalSeleccionadaIndex) {
+            return $scope.itemSeleccionado;
+        }
+        return $scope.itemNoSeleccionado;
     }
 
     $scope.asignarFarmacia = function (index) {
@@ -245,6 +267,11 @@ myApp.controller('productController', function ($scope, $http,$route,$location) 
             }).error(function (data) {
                 console.log(data);
             });
+    };
+
+
+    $scope.modificarProductoSeleccionado = function (producto) {
+        $scope.productoSeleccionado = producto;
     };
 
     $scope.obtenerCategoria();
