@@ -213,3 +213,4 @@ ModelManifest.xml
 
 
 Phishel-Farmatica/Phishel-Farmatica/Phishel-Farmatica.csproj
+*.csproj
