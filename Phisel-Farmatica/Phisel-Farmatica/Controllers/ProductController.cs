@@ -11,15 +11,27 @@ namespace Phisel_Farmatica.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            if (HomeController.USUARIO_CLIENTE.Equals(Session[HomeController.TIPO_DE_USUARIO]))
+            if (HomeController.USUARIO_CLIENTE.Equals(Session[HomeController.RANGO_USUARIO]))
             {
                 return View("~/Views/Product/CompraProducto.cshtml");
             }
-            else if (HomeController.USUARIO_DEPENDIENTE.Equals(Session[HomeController.TIPO_DE_USUARIO]))
+            else if (HomeController.USUARIO_DEPENDIENTE_FARMATICA.Equals(Session[HomeController.RANGO_USUARIO]))
             {
                 return View("~/Views/Product/CompraProducto.cshtml");
             }
-            else if (HomeController.USUARIO_ADMINISTRADOR.Equals(Session[HomeController.TIPO_DE_USUARIO]))
+            else if (HomeController.USUARIO_DEPENDIENTE_PHISHEL.Equals(Session[HomeController.RANGO_USUARIO]))
+            {
+                return View("~/Views/Product/CompraProducto.cshtml");
+            }
+            else if (HomeController.USUARIO_ADMINISTRADOR_PHISHEL.Equals(Session[HomeController.RANGO_USUARIO]))
+            {
+                return View("~/Views/Product/AdministrarProductos.cshtml");
+            }
+            else if (HomeController.USUARIO_ADMINISTRADOR_FARMATICA.Equals(Session[HomeController.RANGO_USUARIO]))
+            {
+                return View("~/Views/Product/AdministrarProductos.cshtml");
+            }
+            else if (HomeController.USUARIO_ADMINISTRADOR_TOTAL.Equals(Session[HomeController.RANGO_USUARIO]))
             {
                 return View("~/Views/Product/AdministrarProductos.cshtml");
             }

@@ -12,8 +12,13 @@ namespace Phisel_Farmatica.Controllers
         // GET: RegistrarUsuario
         public ActionResult Index()
         {
-            if (Session[HomeController.TIPO_DE_USUARIO] != null && 
-                HomeController.USUARIO_ADMINISTRADOR == (int)Session[HomeController.TIPO_DE_USUARIO])
+            if (Session[HomeController.RANGO_USUARIO] != null && 
+                HomeController.USUARIO_ADMINISTRADOR_PHISHEL.Equals(Session[HomeController.RANGO_USUARIO]))
+            {
+                return View("~/Views/RegistrarUsuario/RegistrarPersonal.cshtml");
+            }
+            else if (Session[HomeController.RANGO_USUARIO] != null &&
+                HomeController.USUARIO_ADMINISTRADOR_FARMATICA.Equals(Session[HomeController.RANGO_USUARIO]))
             {
                 return View("~/Views/RegistrarUsuario/RegistrarPersonal.cshtml");
             }

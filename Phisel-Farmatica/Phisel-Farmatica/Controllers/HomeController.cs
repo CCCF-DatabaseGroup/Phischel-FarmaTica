@@ -20,25 +20,23 @@ namespace Phisel_Farmatica.Controllers
         4: Dependiente de Farmatica
         5: cliente
         */
+        public const string USUARIO_ADMINISTRADOR_TOTAL = "Administrador total";
+        public const string USUARIO_ADMINISTRADOR_FARMATICA = "Administrador de Farmatica";
+        public const string USUARIO_DEPENDIENTE_FARMATICA = "Dependiente de Farmatica";
+        public const string USUARIO_ADMINISTRADOR_PHISHEL = "Administrador de Phishel";
+        public const string USUARIO_DEPENDIENTE_PHISHEL = "Dependiente de Phishel";
+        public const string USUARIO_CLIENTE = "Cliente";
 
-        public const int USUARIO_ADMINISTRADOR = 1;
-        public const int USUARIO_DOCTOR = 2;
-        public const int USUARIO_DEPENDIENTE = 3;
-        public const int USUARIO_CLIENTE = 4;
-
-        public const string TIPO_DE_USUARIO = "Tipo_usuario";
-        public const string NICKNAME_USUARIO = "Nickname";
-        public const string CONSTRASENIA_USUARIO = "Contrasena";
-        public const string CORREO_ELECTRONICO_USUARIO = "Correo_electronico";
-        public const string TABLA_USUARIO = "USUARIO";
-        public const string CONNECTION_STRING = "Data Source=GAMER-PC\\UNDERGROUND;Initial Catalog = Test2; Integrated Security = True";
+        public const string RANGO_USUARIO = "Nombre_rango";
+        public const string ID_USUARIO = "Id_usuario";
+        public const string CONNECTION_STRING = "workstation id=PhishelFarmatica.mssql.somee.com;packet size=4096;user id=crisrivlop_SQLLogin_1;pwd=4pwidhq39j;data source=PhishelFarmatica.mssql.somee.com;persist security info=False;initial catalog=PhishelFarmatica";
 
         // GET: Home
         public ActionResult Index(string a)
         {
             System.Diagnostics.Debug.WriteLine("\nIndex called");
             System.Diagnostics.Debug.WriteLine(Session["UserId"]);
-            if (Session[NICKNAME_USUARIO] != null)
+            if (Session[ID_USUARIO] != null)
             {
                 return View("~/Views/Home/Index2.cshtml");
             }
@@ -52,15 +50,7 @@ namespace Phisel_Farmatica.Controllers
         }
         private string getUserConsultString(string userId, string userPassword)
         {
-            return "SELECT " +
-                CONSTRASENIA_USUARIO + ","
-                + NICKNAME_USUARIO + ","
-                + CORREO_ELECTRONICO_USUARIO + ","
-                +  TIPO_DE_USUARIO +
-                " FROM " +  TABLA_USUARIO + " WHERE ( \'" 
-                + userId + "\' = " + NICKNAME_USUARIO +  " OR \'" 
-                + userId + "\' =" + CORREO_ELECTRONICO_USUARIO + ") AND \'" + userPassword
-                + "\' = "+  CONSTRASENIA_USUARIO +";";
+            return "exec acceso '" + userId + "', '" + userPassword + "';";
         }
 
         [HttpPost]
@@ -82,9 +72,8 @@ namespace Phisel_Farmatica.Controllers
                 if (sqlreader.Read())
                 {
                     System.Diagnostics.Debug.WriteLine("\nExiste un usuario");
-                    Session.Add(NICKNAME_USUARIO, sqlreader[NICKNAME_USUARIO]);
-                    Session.Add(TIPO_DE_USUARIO, sqlreader[TIPO_DE_USUARIO]);
-                    Session.Add(CORREO_ELECTRONICO_USUARIO, sqlreader[CORREO_ELECTRONICO_USUARIO]);
+                    Session.Add(ID_USUARIO, sqlreader[ID_USUARIO]);
+                    Session.Add(RANGO_USUARIO, sqlreader[RANGO_USUARIO]);
                     messageReturn = "Conectado";
                 }
                 else
@@ -103,7 +92,7 @@ namespace Phisel_Farmatica.Controllers
         }
         public JsonResult getUserName()
         {
-            return Json(new { UserId = (string)Session[NICKNAME_USUARIO] }, JsonRequestBehavior.AllowGet);
+            return Json(new { UserId = Session[ID_USUARIO] }, JsonRequestBehavior.AllowGet);
         }
         public JsonResult logoutUser()
         {
