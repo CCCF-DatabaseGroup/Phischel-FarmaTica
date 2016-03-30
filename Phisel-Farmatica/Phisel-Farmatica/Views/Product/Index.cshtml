@@ -1,53 +1,113 @@
-﻿@RenderPage("~/Views/Utils/ProductosVistaComun.cshtml")
-<div ng-controller="productController">
+﻿<div ng-controller="productController">
+    <br />
     <!-- Resultados de busqueda-->
+    <ul class="nav nav-pills center-block" style="width:175px;">
+        <li ng-click="asignarFarmacia(0)" ng-class="farmaciaClass[0].estilo"><a href="#">Farmatica</a></li>
+        <li ng-click="asignarFarmacia(1)" ng-class="farmaciaClass[1].estilo"><a href="#">Phishel</a></li>
+    </ul>
 
-
-
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" href="#product_result">Resultados de Busqueda</a>
-            </h4>
-        </div>
-        <div id="product_result" class="panel-collapse collapse in">
-            <div class="list-group">
-                <a ng-click="test(producto.name,producto.quantity)"
-                   class="list-group-item" href="#" data-toggle="modal" data-target="#compraProducto"
-                   ng-repeat="producto in productos">
-                    {{producto.name}}<span class="badge">{{producto.quantity}}</span>
-                </a>
+    <br />
+    <!--Margin button 5px pues debajo de este irán los resultados-->
+    <!-- Provincia -->
+    <div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#provincia">Provincia</a>
+                </h4>
             </div>
-            <div class="panel-footer"></div>
-        </div>
-    </div>
-
-
-    <!-- Menu para Comprar el producto-->
-
-    <div id="compraProducto" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Comprar</h4>
+            <div id="provincia" class="panel-collapse collapse">
+                <div class="list-group">
+                    <a ng-repeat="provincia in provincias" ng-click="activarProvincia($index)" ng-class="getProvinciaClass($index)" data-toggle="collapse" href="#provincia">
+                        {{provincia.Nombre}}
+                    </a>
                 </div>
-
-                <div class="modal-body">
-                    <!-- Cuerpo de la compra -->
-                    {{codigo_producto}}
-                    {{nombre_procuto}}
-                    {{precio_producto}}
-                    Cantidad:<input type="number" id="contidad_producto_gui" />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+                <div class="panel-footer"></div>
             </div>
-
         </div>
+        <!--Categoria-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#sucursal">Sucursal</a>
+                </h4>
+            </div>
+            <div id="sucursal" class="panel-collapse collapse">
+                <div class="list-group" >
+                    <a ng-repeat="sucursal in sucursales" ng-class="{active:selected == sucursal}" ng-click="$parent.selected = sucursal;seleccionarSucursal(sucursal)" class="list-group-item" data-toggle="collapse" href="#sucursal">
+                        <b>Nombre de la sucursal: </b>{{sucursal.Nombre}}
+                        <b> Canton: </b>{{sucursal.Canton}}
+                        <b> Distrito: </b>{{sucursal.Distrito}}
+                    </a>
+                </div>
+                <div class="panel-footer"></div>
+            </div>
+        </div>
+        <!--Productos de FarmaTica-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#product_type">Tipo De Producto</a>
+                </h4>
+            </div>
+            <div id="product_type" class="panel-collapse collapse">
+                <div class="list-group">
+                    <a ng-repeat="tipo in tipo_producto" ng-class="{active:selected == tipo}" ng-click="$parent.selected = tipo;seleccionarCategoria(tipo)"  class="list-group-item" data-toggle="collapse" href="#product_type">
+                        {{tipo.Nombre}}
+                    </a>
+                </div>
+                <div class="panel-footer"></div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#product_result">Resultados de Busqueda</a>
+                </h4>
+            </div>
+            <div id="product_result" class="panel-collapse collapse in">
+                <div class="list-group">
+                    <a ng-click="test(producto.name,producto.quantity)"
+                       class="list-group-item" href="#" data-toggle="modal" data-target="#compraProducto"
+                       ng-repeat="producto in productos">
+                        <b>Nombre del producto: </b>{{producto.Nombre}}
+                        <b> Descripcion del producto: </b> {{Producto.Descripcion}}
+                        <b> Requiere prescripcion: </b>{{producto.Prescripcion}}
+                        <b> Precio: </b> {{producto.Precio}}
+                        <span class="badge">{{producto.Cantidad}}</span>
+                    </a>
+                </div>
+                <div class="panel-footer"></div>
+            </div>
+        </div>
+
+
+        <!-- Menu para Comprar el producto-->
+
+        <div id="compraProducto" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Comprar</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <!-- Cuerpo de la compra -->
+                        {{codigo_producto}}
+                        {{nombre_procuto}}
+                        {{precio_producto}}
+                        Cantidad:<input type="number" id="contidad_producto_gui" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 </div>

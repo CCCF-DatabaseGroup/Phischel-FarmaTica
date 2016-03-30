@@ -238,10 +238,19 @@ a.list-group-item:hover, a.list-group-item:focus:hover{
     color:#ffdfdf;
 }
 
+a.list-group-item.active, a.list-group-item.active:hover{
+    background-color:#528320;
+    color:#ffdfdf;
+    border-color:#528320;
+}
+
 .panel-default > .panel-heading{
     background-color:#dd3c3c;
     color:#ffd2d2;
     transition:background-color 0.5s,color 0.5s;
+}
+.panel{
+    margin-bottom:0px;
 }
 
 .panel-default > .panel-heading:hover{

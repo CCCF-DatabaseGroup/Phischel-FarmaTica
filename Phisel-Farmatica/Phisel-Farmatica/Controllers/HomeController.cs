@@ -26,6 +26,11 @@ namespace Phisel_Farmatica.Controllers
         public const string USUARIO_ADMINISTRADOR_PHISHEL = "Administrador de Phishel";
         public const string USUARIO_DEPENDIENTE_PHISHEL = "Dependiente de Phishel";
         public const string USUARIO_CLIENTE = "Cliente";
+        public const string FARMACIA = "Farmacia";
+        public const string FARMATICA = "Farmatica";
+        public const string PHISHEL = "Phishel";
+
+        public const string PROVINCIA = "Provincia";
 
         public const string RANGO_USUARIO = "Nombre_rango";
         public const string ID_USUARIO = "Id_usuario";
@@ -99,5 +104,7 @@ namespace Phisel_Farmatica.Controllers
             Session.Clear();
             return Json(new { UserId = "" }, JsonRequestBehavior.AllowGet);
         }
+
+
     }
 }
