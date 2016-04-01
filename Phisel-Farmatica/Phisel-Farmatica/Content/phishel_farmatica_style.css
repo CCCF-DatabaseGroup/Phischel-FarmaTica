@@ -12,6 +12,15 @@
     text-align:center;
 }
 
+.subtitulo{
+    font-family:Roboto !important; 
+    font-weight:200;
+    font-style:normal;
+    font-size:40px;
+    color:#0c0c0c;
+    text-align:center;
+}
+
 @media (max-width: 801px) {
     .presentation_header {
         font-size: 18pt;
