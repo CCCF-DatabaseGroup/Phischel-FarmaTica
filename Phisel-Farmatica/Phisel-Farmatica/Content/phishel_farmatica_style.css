@@ -1,10 +1,50 @@
-﻿/*
+﻿@import url(https://fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,400,400italic,500,500italic,700,700italic,900,900italic&subset=latin,latin-ext,cyrillic,cyrillic-ext,greek-ext,greek,vietnamese);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext,cyrillic-ext,cyrillic,greek-ext,greek,vietnamese);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700&subset=latin,latin-ext,greek-ext,greek,vietnamese,cyrillic,cyrillic-ext);
+
+
+
+.presentation_header{
+    font-family:Roboto !important; 
+    font-weight:200;
+    font-style:normal;
+    font-size:80px;
+    text-align:center;
+}
+
+@media (max-width: 801px) {
+    .presentation_header {
+        font-size: 18pt;
+    }
+}
+
+.horizontal_line{
+    height:1px;
+    border:none;
+    background-color:#dd3c3c;
+    color:#dd3c3c;
+    height:3px;
+}
+
+.link_rojo{
+    color:#dd3c3c;
+    font-weight:bold;
+}
+
+.link_rojo:hover{
+    color:#be2a2a;
+    font-weight:bold;
+}
+
+/*
     BugFix #1: descripcion, el navbar tapaba 
     parte de la pantalla en algunas resoluciones de pantalla
     Solucion: este bloque de codigo
  */
 
 @media (max-width: 991px) {
+
+
     .navbar-header {
         float: none;
     }
@@ -42,8 +82,10 @@
     }
 }
 
-
 /*BugFix #1 END;*/
+
+
+
 
 
 /*

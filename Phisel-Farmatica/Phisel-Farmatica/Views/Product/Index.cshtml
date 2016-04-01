@@ -1,4 +1,4 @@
-﻿<div ng-controller="productController">
+﻿<div ng-controller="productController" >
     <br />
     <!-- Resultados de busqueda-->
     <ul class="nav nav-pills center-block" style="width:175px;">
@@ -7,116 +7,64 @@
     </ul>
 
     <br />
-    <!--Margin button 5px pues debajo de este irán los resultados-->
-    <!-- Provincia -->
-    <div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#provincia">Provincia</a>
-                </h4>
-            </div>
-            <div id="provincia" class="panel-collapse collapse">
-                <div class="list-group">
-                    <a ng-repeat="provincia in provincias" ng-click="activarProvincia($index)" ng-class="getProvinciaClass($index)" data-toggle="collapse" href="#provincia">
-                        {{provincia.Nombre}}
-                    </a>
-                </div>
-                <div class="panel-footer"></div>
-            </div>
+    @RenderPage("~/Views/Utils/ProductosVistaComun.cshtml")
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#product_result">Resultados de Busqueda</a>
+            </h4>
         </div>
-        <!--Categoria-->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#sucursal">Sucursal</a>
-                </h4>
+        <div id="product_result" class="panel-collapse collapse in">
+            <div class="list-group">
+                <a ng-click="modificarProductoSeleccionado(producto)"
+                   class="list-group-item" href="#" data-toggle="modal" data-target="#compraProducto"
+                   ng-repeat="producto in productos">
+                    <b>Nombre del producto: </b>{{producto.Nombre}}
+                    <b> Precio: </b> &cent; {{producto.Precio}}<br />
+                    <b> Descripcion del producto: </b> {{producto.Descripcion}}
+                    <b> Requiere prescripcion: </b>{{producto.Prescripcion}}
+
+
+                    <span class="badge" style="vertical-align:middle;">{{producto.Cantidad}}</span>
+                    <span class="glyphicon glyphicon-shopping-cart" style="float:right;padding-right:3px;"></span>
+                </a>
             </div>
-            <div id="sucursal" class="panel-collapse collapse">
-                <div class="list-group" id="sucursal_de_producto">
-                    <a ng-repeat="sucursal in sucursales" ng-click="seleccionarSucursal(sucursal,$index)" class="list-group-item" ng-class="getSucursalClass($index)" data-toggle="collapse" href="#sucursal">
-                        <b>Nombre de la sucursal: </b>{{sucursal.Nombre}}
-                        <b> Canton: </b>{{sucursal.Canton}}
-                        <b> Distrito: </b>{{sucursal.Distrito}}
-                    </a>
-                </div>
-                <div class="panel-footer"></div>
-            </div>
+            <div class="panel-footer"></div>
         </div>
-        <!--Productos de FarmaTica-->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#product_type">Tipo De Producto</a>
-                </h4>
-            </div>
-            <div id="product_type" class="panel-collapse collapse">
-                <div class="list-group" id="categoria_de_producto">
-                    <a ng-repeat="tipo in tipo_producto" ng-click="seleccionarCategoria(tipo,$index)"  class="list-group-item" ng-class="getCategoriaClass($index)" data-toggle="collapse" href="#product_type">
-                        {{tipo.Nombre}}
-                    </a>
-                </div>
-                <div class="panel-footer"></div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#product_result">Resultados de Busqueda</a>
-                </h4>
-            </div>
-            <div id="product_result" class="panel-collapse collapse in">
-                <div class="list-group">
-                    <a ng-click="modificarProductoSeleccionado(producto)"
-                       class="list-group-item" href="#" data-toggle="modal" data-target="#compraProducto"
-                       ng-repeat="producto in productos">
-                        <b>Nombre del producto: </b>{{producto.Nombre}}
-                        <b> Precio: </b> &cent; {{producto.Precio}}<br />
-                        <b> Descripcion del producto: </b> {{producto.Descripcion}}
-                        <b> Requiere prescripcion: </b>{{producto.Prescripcion}}
-
-                        
-                        <span class="badge" style="vertical-align:middle;">{{producto.Cantidad}}</span>
-                        <span class="glyphicon glyphicon-shopping-cart" style="float:right;padding-right:3px;"></span>
-                    </a>
-                </div>
-                <div class="panel-footer"></div>
-            </div>
-        </div>
-
-
-        <!-- Menu para Comprar el producto-->
-
-        <div id="compraProducto" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Agregar al carrito</h4>
-                    </div>
-
-                    <div class="modal-body">
-                        ¿Desea agregar este producto al carrito?<br />
-                        <!-- Cuerpo de la compra -->
-                        <b>Nombre del producto: </b>{{productoSeleccionado.Nombre}}<br />
-                        <b> Precio: </b> &cent;{{productoSeleccionado.Precio}}<br />
-                        <b> Descripcion del producto: </b> {{productoSeleccionado.Descripcion}}<br />
-                        <b> Requiere prescripcion: </b>{{productoSeleccionado.Prescripcion}}<br />
-                        <br />
-                        <div style="width:90px;" class="center-block">
-                            <button type="button" class="btn btn-success" data-dismiss="modal">S&iacute;</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-                        </div>                        
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
     </div>
+
+
+    <!-- Menu para Comprar el producto-->
+
+    <div id="compraProducto" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Agregar al carrito</h4>
+                </div>
+
+                <div class="modal-body">
+                    ¿Desea agregar este producto al carrito?<br />
+                    <!-- Cuerpo de la compra -->
+                    <b>Nombre del producto: </b>{{productoSeleccionado.Nombre}}<br />
+                    <b> Precio: </b> &cent;{{productoSeleccionado.Precio}}<br />
+                    <b> Descripcion del producto: </b> {{productoSeleccionado.Descripcion}}<br />
+                    <b> Requiere prescripcion: </b>{{productoSeleccionado.Prescripcion}}<br />
+                    <br />
+                    <div style="width:90px;" class="center-block">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">S&iacute;</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </div>

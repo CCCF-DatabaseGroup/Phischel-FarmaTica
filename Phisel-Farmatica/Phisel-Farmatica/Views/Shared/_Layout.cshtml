@@ -6,10 +6,7 @@
     <title>@ViewBag.Title Phishel &amp; Farmatica</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <link href="~/Content/phishel_farmatica_style.css" rel="stylesheet" />
-    <script src="~/scripts/angular.js"></script>
-    <script src="~/scripts/app.js"></script>
 
 </head>
 <body ng-app="myApp">
@@ -26,18 +23,14 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav" id="menu_navegacion">
                     <li class="nav-item">
-                        <a href="/">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
                         <a href="/Product">Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/Sucursal">Sucursal</a>
+                        <a href="/Carrito">Carrito</a>
                     </li>
                     <li class="nav-item">
                         <a href="/Help">Ayuda</a>
                     </li>
-
                     <li class="navbar-form">
                         <div class="form-group" style="min-width:320px;max-width:420px;padding-left:3px;">
                             <input style="width:250px;display:inline-block;" class="form-control" placeholder="busque el producto que desee" id="busqueda_global" type="text" />
@@ -51,7 +44,6 @@
                     <li class="nav-item active" id="singup" ng-controller="mainController">
                         @RenderPage("~/Views/Utils/LogeoUsuario.cshtml")
                     </li>
-                    
                 </ul>
             </div>
         </div>
@@ -64,7 +56,9 @@
             <p>&copy; @DateTime.Now.Year Phishel &amp; Farmatica</p>
         </footer>
     </div>
-
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/scripts/angular.js"></script>
+    <script src="~/scripts/app.js"></script>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/scripts/angular-route.js"></script>

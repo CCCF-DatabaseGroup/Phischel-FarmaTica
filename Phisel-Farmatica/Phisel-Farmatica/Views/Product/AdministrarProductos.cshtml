@@ -1,4 +1,6 @@
 ﻿<div ng-controller="productController">
+    <br />
+
     @RenderPage("~/Views/Utils/ProductosVistaComun.cshtml")
 
     <div class="list-group">
@@ -11,15 +13,23 @@
             </div>
             <div id="product_result" class="panel-collapse collapse in">
                 <div class="list-group">
-                    <a ng-click="test(producto.name,producto.quantity)"
+                    <a ng-click="modificarProductoSeleccionado(producto)"
                        class="list-group-item" href="#" data-toggle="modal" data-target="#compraProducto"
                        ng-repeat="producto in productos">
-                        {{producto.name}}<span class="badge">{{producto.quantity}}</span>
+                        <b>Nombre del producto: </b>{{producto.Nombre}}
+                        <b> Precio: </b> &cent; {{producto.Precio}}<br />
+                        <b> Descripcion del producto: </b> {{producto.Descripcion}}
+                        <b> Requiere prescripcion: </b>{{producto.Prescripcion}}
+
+
+                        <span class="badge" style="vertical-align:middle;">{{producto.Cantidad}}</span>
+                        <span class="glyphicon glyphicon-shopping-cart" style="float:right;padding-right:3px;"></span>
                     </a>
                 </div>
                 <div class="panel-footer"></div>
             </div>
         </div>
+
 
         <div class="button-list center-block">
             <input class="btn btn-success button-item" id="agregar_Producto" type="button" value="Agregar Producto" />

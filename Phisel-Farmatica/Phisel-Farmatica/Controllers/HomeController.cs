@@ -41,9 +41,22 @@ namespace Phisel_Farmatica.Controllers
         {
             System.Diagnostics.Debug.WriteLine("\nIndex called");
             System.Diagnostics.Debug.WriteLine(Session["UserId"]);
-            if (Session[ID_USUARIO] != null)
+            string rango = (string)Session[RANGO_USUARIO];
+            if ( rango != null && !USUARIO_CLIENTE.Equals(rango))
             {
-                return View("~/Views/Home/Index2.cshtml");
+                if (rango.Equals(USUARIO_DEPENDIENTE_FARMATICA) || rango.Equals(USUARIO_DEPENDIENTE_PHISHEL))
+                {
+                    return View("~/Views/Home/DependienteHome.cshtml");
+                }
+                else if (rango.Equals(USUARIO_ADMINISTRADOR_FARMATICA) || rango.Equals(USUARIO_ADMINISTRADOR_PHISHEL))
+                {
+                    return View("~/Views/Home/AdministradorHome.cshtml");
+                }
+                else
+                {
+                    return View("~/Views/Home/SuperAdministratorHome.cshtml");
+                }
+                
             }
             else return View("~/Views/Home/Index.cshtml");
         }

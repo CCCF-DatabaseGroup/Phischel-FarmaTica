@@ -149,15 +149,21 @@ myApp.controller('productController', function ($scope, $http,$route,$location) 
     $scope.itemSeleccionado = "list-group-item active";
     $scope.indiceItemSeleccionado = 0;
     $scope.provinciaSeleccionada = $scope.provincias[0].Nombre;
-    $scope.test = function (name, quantity) {
-        console.log(name);
-        console.log(quantity);
-    };
 
     $scope.obtenerSucursales = function () {
+        console.log("=================================================================");
+        console.log("Obtener Sucursales");
+        console.log("=================================================================");
         $http.get('/Product/obtenerListaSucursal')
             .success(function (result) {
                 $scope.sucursales = result;
+                if (result.lenght != 0) {
+                    $scope.seleccionarSucursal($scope.sucursales[0], 0);
+                }
+                else {
+                    $scope.seleccionarSucursal("", 0);
+                }
+                console.log("Resultados de sucursales: ");
                 console.log(result);
 
             }).error(function (data) {
@@ -194,10 +200,10 @@ myApp.controller('productController', function ($scope, $http,$route,$location) 
         return $scope.itemNoSeleccionado;
     }
 
-    $scope.seleccionarSucursal = function (sucursal,index) {
+    $scope.seleccionarSucursal = function (sucursal, index) {
+        console.log("Sucursal seleccionada: ");
         console.log(sucursal);
         $scope.sucursalSeleccionada = sucursal.Nombre;
-        console.log("dummy");
         $scope.sucursalSeleccionadaIndex = index;
         $scope.obtenerproductos();
     };
@@ -216,6 +222,7 @@ myApp.controller('productController', function ($scope, $http,$route,$location) 
         //obtener las sucursales
         $http.post('/Product/modificarFarmacia', { pFarmacia: $scope.farmaciaActiveElement })
             .success(function (result) {
+                console.log("Farmacia seleccionada",result);
                 if ($scope.farmaciaActiveElement) {
                     $scope.farmaciaClass[0].estilo = "active";
                     $scope.farmaciaClass[1].estilo = "";
@@ -224,12 +231,11 @@ myApp.controller('productController', function ($scope, $http,$route,$location) 
                     $scope.farmaciaClass[0].estilo = "";
                     $scope.farmaciaClass[1].estilo = "active";
                 }
+                $scope.obtenerSucursales();
                 //
             }).error(function (data) {
                 console.log(data);
             });
-
-        $scope.obtenerSucursales();
     };
 
     $scope.activarProvincia = function (index) {
@@ -242,11 +248,10 @@ myApp.controller('productController', function ($scope, $http,$route,$location) 
             { pProvincia: $scope.provincias[$scope.indiceItemSeleccionado].Nombre })
             .success(function (result) {
                 //
+                $scope.obtenerSucursales();
             }).error(function (data) {
                 console.log(data);
             });
-
-        $scope.obtenerSucursales();
     };
 
     $scope.getProvinciaClass = function (index) {
@@ -258,11 +263,13 @@ myApp.controller('productController', function ($scope, $http,$route,$location) 
 
 
     $scope.obtenerCategoria = function () {
+        console.log("obtener categoria called");
         //obtener las sucursales
         $http.get('/Product/obtenerListaCategoria')
             .success(function (result) {
                 $scope.tipo_producto = result;
                 $scope.categoriaProducto = result[0].Nombre;
+                $scope.seleccionarCategoria($scope.tipo_producto[0],0);
                 //
             }).error(function (data) {
                 console.log(data);
@@ -275,6 +282,54 @@ myApp.controller('productController', function ($scope, $http,$route,$location) 
     };
 
     $scope.obtenerCategoria();
+    $scope.activarProvincia(0);
     
     
+});
+
+
+myApp.controller('carritoController', function ($scope, $http, $route, $location) {
+    $scope.sucursalesProductos = [
+        {
+            Sucursal: "TAL", ListaSucursal: [
+            { Nombre: "A", Precio: 12, Descripcion: "AAA", Prescripcion: "SI",Cantidad:1 },
+            { Nombre: "B", Precio: 32, Descripcion: "BBB", Prescripcion: "SI", Cantidad: 1 },
+            { Nombre: "C", Precio: 85, Descripcion: "CCC", Prescripcion: "NO", Cantidad: 1 }
+            ]
+        },
+        {
+            Sucursal: "TOL", ListaSucursal: [
+            { Nombre: "D", Precio: 12, Descripcion: "AAA", Prescripcion: "SI", Cantidad: 1 },
+            { Nombre: "E", Precio: 32, Descripcion: "BBB", Prescripcion: "SI", Cantidad: 1 },
+            { Nombre: "F", Precio: 85, Descripcion: "CCC", Prescripcion: "NO", Cantidad: 1 }
+            ]
+        }
+    ];
+    $scope.aumentarCantidadProducto = function (product) {
+        product.Cantidad += 1;
+    };
+    $scope.decrementarCantidadProducto = function (product) {
+        if (product.Cantidad > 1) {
+            product.Cantidad -= 1;
+        }
+        
+    };
+
+    $scope.eliminarProducto = function (sucursalProducto, index) {
+        if (index > -1) {
+            sucursalProducto.ListaSucursal.splice(index, 1);
+            console.log("Se ha eliminado un producto comprado", sucursalProducto.ListaSucursal.length);
+            if (sucursalProducto.ListaSucursal.length == 0) {
+                console.log("Se ha eliminado una sucursal");
+                $scope.sucursalesProductos.splice($scope.sucursalesProductos.indexOf(sucursalProducto), 1);
+            }
+        }
+    };
+    $scope.eliminarSucursal = function (index) {
+        if (index > -1) {
+            console.log("Se ha eliminado una sucursal");
+            $scope.sucursalesProductos.splice(index, 1);
+        }
+    };
+
 });

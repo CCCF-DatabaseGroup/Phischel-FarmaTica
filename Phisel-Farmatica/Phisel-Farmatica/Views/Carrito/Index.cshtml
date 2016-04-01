@@ -1,1 +1,58 @@
-﻿
+﻿<br />
+
+<a class="link_rojo">
+    <span class="glyphicon glyphicon-arrow-up"></span>
+    Aumenta la cantidad de producto a comprar <br />
+</a>
+<a class="link_rojo">
+    <span class="glyphicon glyphicon-arrow-down"></span>
+    Disminuye la cantidad de producto a comprar <br />
+</a>
+<a class="link_rojo">
+    <span class="glyphicon glyphicon-minus-sign"></span>
+    Elimina el producto que no se desea comprar<br />
+</a>
+<br />
+
+<div ng-controller="carritoController">
+    <div ng-repeat="sucursalProducto in sucursalesProductos">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#product_in_cart{{$index}}">Compras en la sucursal: {{sucursalProducto.Sucursal}}</a>
+                </h4>
+            </div>
+            <div id="product_in_cart{{$index}}" class="panel-collapse collapse in">
+                <ul class="list-group">
+                    <li class="list-group-item"
+                        ng-repeat="producto in sucursalProducto.ListaSucursal">
+                        <b>Nombre del producto: </b>{{producto.Nombre}}<br />
+                        <b> Precio: </b> &cent; {{producto.Precio}}<br />
+                        <a href="#" class="link_rojo">
+                            <span ng-click="eliminarProducto(sucursalProducto,$index)" class="glyphicon glyphicon-minus-sign" style="float:right;padding-right:3px;"></span>
+                        </a>
+                        <a href="#" class="link_rojo">
+                            <span ng-click="decrementarCantidadProducto(producto)" class="glyphicon glyphicon-arrow-down" style="float:right;padding-right:3px;"></span>
+                        </a>
+                        <a href="#" class="link_rojo">
+                            <span ng-click="aumentarCantidadProducto(producto)" class="glyphicon glyphicon-arrow-up" style="float:right;padding-right:3px;"></span>
+                        </a>
+                        
+                        <b> Descripcion del producto: </b> {{producto.Descripcion}}<br />
+                        <b> Requiere prescripcion: </b>{{producto.Prescripcion}}<br />
+                        <b> Cantidad: </b>{{producto.Cantidad}}<br />
+
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-footer">
+                <input class="btn btn-success" type="button" value="Comprar" />
+                <input ng-click="eliminarSucursal($index)" class="btn btn-danger" type="button" value="Eliminar compra" />
+
+            </div>
+
+        </div>
+        
+    </div>
+</div>

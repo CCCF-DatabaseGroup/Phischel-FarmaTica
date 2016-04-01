@@ -1,10 +1,5 @@
-﻿<br />
-<!--Margin button 5px pues debajo de este irán los resultados-->
-
-<div class="panel-group" ng-controller="productController" style="margin-bottom:5px;">
-
-
-    <!-- Provincia -->
+﻿<!--Margin button 5px pues debajo de este irán los resultados-->
+<!-- Provincia -->
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -20,7 +15,6 @@
             <div class="panel-footer"></div>
         </div>
     </div>
-
     <!--Categoria-->
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -29,10 +23,10 @@
             </h4>
         </div>
         <div id="sucursal" class="panel-collapse collapse">
-            <div class="list-group">
-                <a ng-repeat="sucursal in sucursales" class="list-group-item" data-toggle="collapse" href="#sucursal">
+            <div class="list-group" id="sucursal_de_producto">
+                <a ng-repeat="sucursal in sucursales" ng-click="seleccionarSucursal(sucursal,$index)" class="list-group-item" ng-class="getSucursalClass($index)" data-toggle="collapse" href="#sucursal">
                     <b>Nombre de la sucursal: </b>{{sucursal.Nombre}}
-                    <b> Canton: </b>{{sucursal.Canton}} 
+                    <b> Canton: </b>{{sucursal.Canton}}
                     <b> Distrito: </b>{{sucursal.Distrito}}
                 </a>
             </div>
@@ -47,12 +41,11 @@
             </h4>
         </div>
         <div id="product_type" class="panel-collapse collapse">
-            <div class="list-group">
-                <a ng-repeat="tipo in tipo_producto" class="list-group-item" data-toggle="collapse" href="#product_type">
+            <div class="list-group" id="categoria_de_producto">
+                <a ng-repeat="tipo in tipo_producto" ng-click="seleccionarCategoria(tipo,$index)" class="list-group-item" ng-class="getCategoriaClass($index)" data-toggle="collapse" href="#product_type">
                     {{tipo.Nombre}}
                 </a>
             </div>
             <div class="panel-footer"></div>
         </div>
     </div>
-</div>
