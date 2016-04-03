@@ -1,27 +1,38 @@
-﻿<br />
-
-
-<div class="table-responsive">
+﻿<div ng-controller="dependienteController">
+    <br />
     <h1 class="subtitulo">Pedidos</h1>
+    <a class="btn btn-primary center-block"><span class="glyphicon glyphicon-refresh" /> Recargar</a>
+    <div class="table-responsive">
 
-    <table class="table">
-        <thead>
-            <tr class="info">
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Costo</th>
-                <th>Codigo Factura</th>
-                <th>Cancelar</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>300</td>
-                <td>30A</td>
-                <td><a><span class="glyphicon glyphicon-check"></span></a></td>
-            </tr>
-        </tbody>
-    </table>
-</div> 
+        <br />
+        <!-- Esta es la tabla donde se mostraran los pedidos de los usuarios -->
+        <table class="table">
+            <thead>
+                <!-- Este es el encabezado de la tabla, segun los valores que se desean obtener -->
+                <tr class="info">
+                    <th>Codigo Factura</th>
+                    <th>Nombre de Cliente</th>
+                    <th>Al cobro</th>
+                    <th>Hora de compra</th>
+                    <th>Facturar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--Es la lista de pedidos ordenada por hora-->
+                <tr ng-repeat="pedido in pedidos">
+                    <td>{{pedido.Codigo}}</td>
+                    <td>{{pedido.NombreCliente}} {{pedido.ApellidoCliente}}</td>
+                    <td>&cent; {{pedido.AlCobro}}</td>
+                    <td>{{pedido.HoraDeCompra}}</td>
+                    <td><a href="#" class="btn btn-success center-block"><span class="glyphicon glyphicon-check"></span>Facturar</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!--Es la paginacion de pedidos, subdivide en 10 pedidos por pagina-->
+        <ul class="pagination center-block">
+
+            <li><a href="#" ng-repeat="pagina in paginas">{{pagina.Numero}}</a></li>
+        </ul>
+    </div>
+</div>

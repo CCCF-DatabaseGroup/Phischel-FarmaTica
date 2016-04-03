@@ -1,13 +1,15 @@
 ﻿<div ng-controller="productController" >
     <br />
-    <!-- Resultados de busqueda-->
+    <!-- Son los botones que asignan la farmacia seleccionada-->
     <ul class="nav nav-pills center-block" style="width:175px;">
         <li ng-click="asignarFarmacia(0)" ng-class="farmaciaClass[0].estilo"><a href="#">Farmatica</a></li>
         <li ng-click="asignarFarmacia(1)" ng-class="farmaciaClass[1].estilo"><a href="#">Phishel</a></li>
     </ul>
 
     <br />
+    <!--Con esto se muestra la vista comun de los producto en este caso es para usuario cliente-->
     @RenderPage("~/Views/Utils/ProductosVistaComun.cshtml")
+    <!-- En este contenedor se visualizan los resultados de la busqueda-->
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -19,6 +21,7 @@
                 <a ng-click="modificarProductoSeleccionado(producto)"
                    class="list-group-item" href="#" data-toggle="modal" data-target="#compraProducto"
                    ng-repeat="producto in productos">
+                    <!--Se muestran las caracteristicas de cada producto desde el nombre, hasta el precio, como la cantidad disponible-->
                     <b>Nombre del producto: </b>{{producto.Nombre}}
                     <b> Precio: </b> &cent; {{producto.Precio}}<br />
                     <b> Descripcion del producto: </b> {{producto.Descripcion}}
@@ -34,7 +37,7 @@
     </div>
 
 
-    <!-- Menu para Comprar el producto-->
+    <!-- Menu emergente para agregar el producto al carrito-->
 
     <div id="compraProducto" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -48,7 +51,7 @@
 
                 <div class="modal-body">
                     ¿Desea agregar este producto al carrito?<br />
-                    <!-- Cuerpo de la compra -->
+                    <!-- en este menu se muestra el producto y sus detalles para agregarlo al carrito-->
                     <b>Nombre del producto: </b>{{productoSeleccionado.Nombre}}<br />
                     <b> Precio: </b> &cent;{{productoSeleccionado.Precio}}<br />
                     <b> Descripcion del producto: </b> {{productoSeleccionado.Descripcion}}<br />
