@@ -1,5 +1,13 @@
-﻿<!--Margin button 5px pues debajo de este irán los resultados-->
-<!-- Provincia -->
+﻿<!-- Esta pagina contiene una serie de paneles contraibles el los que se encuentran una serie de filtros,
+    los filtros se aplican para buscar los productos deseados, la pagina lo que buscar ser es una vista comun entre
+    la vista de administrador, usuario normal, visitante o dependiente para luego ser expandida para los distintos tipos de
+    usuario
+    -->
+
+    <!--Este panel expandible sirve para seleccionar la provincia de la cual se desea consultar los productos
+        cuando se selecciona la provincia se actualizaran los datos de las sucursales disponibles y los producto de la 
+        primera sucursal que aparezca
+        -->
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -7,7 +15,13 @@
             </h4>
         </div>
         <div id="provincia" class="panel-collapse collapse">
+            <!--Representa el conjunto de provincias-->
             <div class="list-group">
+                <!--reprensenta a una provincia, la clase Bootstrap a la que el item de la lista (provincia en si)
+                    pertenece, sea list-item active para la provincia activa y list-item para las que no, para el caso en
+                    que la provincia sea seleccionada por medio de un click, en computadoras o seleccionar con el dedo en
+                    dispositivos moviles se activa por medio del indice de la lista
+                    -->
                 <a ng-repeat="provincia in provincias" ng-click="activarProvincia($index)" ng-class="getProvinciaClass($index)" data-toggle="collapse" href="#provincia">
                     {{provincia.Nombre}}
                 </a>
@@ -15,7 +29,9 @@
             <div class="panel-footer"></div>
         </div>
     </div>
-    <!--Categoria-->
+    <!--Este panel expandible sirve para seleccionar la sucursal de la cual se desea consultar los productos
+        cuando se selecciona la sucursal se actualizaran los datos de los productos disponibles
+        -->
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -23,8 +39,18 @@
             </h4>
         </div>
         <div id="sucursal" class="panel-collapse collapse">
+            <!--Representa el conjunto de las sucursales disponibles en una provincia segun la farmacia seleccionda sea 
+                Phishel o Farmatica-->
             <div class="list-group" id="sucursal_de_producto">
-                <a ng-repeat="sucursal in sucursales" ng-click="seleccionarSucursal(sucursal,$index)" class="list-group-item" ng-class="getSucursalClass($index)" data-toggle="collapse" href="#sucursal">
+                <!--
+                    reprensenta a una sucursal, la clase Bootstrap a la que el item de la lista (provincia en si)
+                    pertenece, sea list-item active para la sucursal activa y list-item para las que no, para el caso en
+                    que la provincia sea seleccionada por medio de un click, en computadoras o seleccionar con el dedo en
+                    dispositivos moviles se activa por medio del indice de la lista, ademas muestra las caracteristicas
+                    principales de la sucursal respecto a su ubicacion y nombre
+                -->
+                <a ng-repeat="sucursal in sucursales" ng-click="seleccionarSucursal(sucursal,$index)" 
+                   class="list-group-item" ng-class="getSucursalClass($index)" data-toggle="collapse" href="#sucursal">
                     <b>Nombre de la sucursal: </b>{{sucursal.Nombre}}
                     <b> Canton: </b>{{sucursal.Canton}}
                     <b> Distrito: </b>{{sucursal.Distrito}}
@@ -33,7 +59,7 @@
             <div class="panel-footer"></div>
         </div>
     </div>
-    <!--Productos de FarmaTica-->
+    <!--Es el menu expandible del tipo de las distintas categorias de productos disponibles-->
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -41,7 +67,15 @@
             </h4>
         </div>
         <div id="product_type" class="panel-collapse collapse">
+            <!--Es el conjunto de todas las categorias de productos disponibles -->
             <div class="list-group" id="categoria_de_producto">
+                <!--
+                    reprensenta a una categoria, la clase Bootstrap a la que el item de la lista (provincia en si)
+                    pertenece, sea list-item active para la categoria de producto activa y list-item para las que no, 
+                    para el caso en
+                    que la categoria sea seleccionada por medio de un click, en computadoras o seleccionar con el dedo en
+                    dispositivos moviles se activa por medio del indice de la lista
+                -->
                 <a ng-repeat="tipo in tipo_producto" ng-click="seleccionarCategoria(tipo,$index)" class="list-group-item" ng-class="getCategoriaClass($index)" data-toggle="collapse" href="#product_type">
                     {{tipo.Nombre}}
                 </a>

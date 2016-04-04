@@ -45,6 +45,30 @@
     font-weight:bold;
 }
 
+
+
+.botones_administrador{
+    width:480px;
+    margin: 0px auto;
+}
+
+
+@media (max-width: 361px) {
+    .botones_administrador{
+        width:200px;
+    }
+    .botones_administrador .boton{
+        width:200px;
+        display:inline-block;
+        margin-bottom: 3px;
+        margin: 0px auto;
+    }
+
+}
+
+
+
+
 /*
     BugFix #1: descripcion, el navbar tapaba 
     parte de la pantalla en algunas resoluciones de pantalla

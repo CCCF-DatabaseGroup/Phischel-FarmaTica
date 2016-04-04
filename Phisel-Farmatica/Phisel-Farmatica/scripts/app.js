@@ -7,7 +7,7 @@
                    { Nombre: "Limon" }];
 
 
-myApp = angular.module('myApp', []);
+myApp = angular.module('myApp', ['nvd3']);
 
 
 

@@ -1,4 +1,7 @@
-﻿<!-- Trigger the modal with a button -->
+﻿<!-- Este el boton que muestra el modal donde se ingresan los datos del usuario para poder ingresar al sistema de compra 
+     Se oculta por defecto para que el sistema pueda detectar cuales de los dos botones estan activos
+    el de iniciar sesion (logueo) o cerrar sesion (logout)
+    -->
 <a href="#" id="Login_button" data-toggle="modal" style="display:none;" data-target="#myModal"><span class="glyphicon glyphicon-user"></span> Ingresar o Registrarse</a>
 <!--Este boton esta oculto por defecto para dar paso al boton de "logeo"-->
 <a href="#" ng-click="logoutUser()" id="Logout_button" style="display:none;"><span class="glyphicon glyphicon-user"></span> Cerrar sesi&oacute;n</a>
@@ -6,39 +9,32 @@
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
-        <!-- Modal content-->
+        <!-- Este es un modal emergente que se encarga de solicitar los datos del usuario para que pueda logearse-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <!--Este es el titulo del modal emergente-->
                 <h4 class="modal-title">Iniciar Sesi&oacute;n</h4>
             </div>
 
             <div class="modal-body">
 
-
+                <!--Este es el input donde se ingresa el nombre de usuario-->
                 <input ng-model="userName" class="login_component form-control center-block" placeholder="usuario o e-mail" id="Text1" type="text" />
+                <!--Este es el input donde se ingresa la contrasenia de usuario-->
                 <input ng-model="userPassword" type="password" class="login_component form-control center-block" placeholder="contraseña" id="Text1" type="text" />
+                <!--Este es el boton que el usuario utilizara para poder ingresar al sistema de farmacias-->
                 <input ng-click="loginUser()" class="login_component btn btn-success center-block" id="Button1" type="button" value="Ingresar" />
                 <p class="login_message">{{loginMessage}}</p>
 
-                <!-- Estos son los botones de seleccion de tipo de usuario, estan ocultos por pruebas--->
-                <div class="btn-group-vertical" data-toggle="buttons" style="width:100%;margin-left:auto;margin-right:auto;display:none;">
-                    <label style="width:180px;margin-left:auto;margin-right:auto;" class="btn btn-primary active">
-                        <input type="radio" name="options" id="option1" autocomplete="off" checked> Cliente
-                    </label>
-                    <label style="width:180px;margin-left:auto;margin-right:auto;" class="btn btn-primary">
-                        <input type="radio" name="options" id="option2" autocomplete="off"> Dependiente
-                    </label>
-                    <label style="width:180px;margin-left:auto;margin-right:auto;" class="btn btn-primary">
-                        <input type="radio" name="options" id="option3" autocomplete="off"> Administrador
-                    </label>
-                </div>
-                <br>
+
                 <!--Boton de registro de usuario-->
                 <a class="login_component btn btn-warning center-block" id="regitrador" href="/RegistrarUsuario" value="Registrarse" >Registrarse</a>
 
             </div>
+            <!--Este es el footer donde el boton close cierra el modal-->
             <div class="modal-footer">
+                <!--Este boton cierra el modal-->
                 <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>

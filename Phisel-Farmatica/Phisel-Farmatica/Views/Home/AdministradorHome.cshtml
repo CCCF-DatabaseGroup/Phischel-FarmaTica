@@ -1,1 +1,68 @@
-﻿
+﻿<div ng-controller="adminController">
+    <br />
+    <a href="/Estadisticas" class="btn btn-primary center-block">Ver estadisticas</a>
+
+    <br />
+    <h1 class="subtitulo">Dependientes</h1>
+    
+    <div class="form-inline">
+        <p for="#provincias" class="text-center"><b>Provincia:</b></p>
+        <select id="provincias" class="center-block">
+            <option ng-repeat="provincia in provincias" ng-click="seleccionarProvincia(provincia)">
+                {{provincia.Nombre}}
+            </option>
+        </select>
+    </div>
+    
+    <div class="form-inline">
+        <p for="#sucursal" class="text-center"><b>Sucursal:</b></p>
+        <select id="sucursal" class="center-block">
+            <option ng-repeat="sucursal in sucursales">
+                {{sucursal.Nombre}}
+            </option>
+        </select>
+    </div>
+
+    <br />
+    <div class="botones_administrador">
+        <a href="#" class="btn btn-success boton"><span class="glyphicon glyphicon-eye-open"></span> Ver</a>
+        <a href="#" class="btn btn-primary boton"><span class="glyphicon glyphicon-edit"></span> Cambiar Sueldo</a>
+        <a href="#" class="btn btn-warning boton"><span class="glyphicon glyphicon-warning-sign"></span> Aceptar Renuncia</a>
+        <a href="#" class="btn btn-danger boton"><span class="glyphicon glyphicon-remove"></span> Despedir</a>
+    </div>
+    <div class="table-responsive">
+
+        <br />
+        <!-- Esta es la tabla donde se mostraran los pedidos de los usuarios -->
+        <table class="table">
+            <thead>
+                <!-- Este es el encabezado de la tabla, segun los valores que se desean obtener -->
+                <tr class="info">
+                    <th>Id Empleado</th>
+                    <th>Cedula</th>
+                    <th>Nombre de empleado</th>
+                    <th>Numero Telefonico</th>
+                    <th>Salario</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--Es la lista de pedidos ordenada por hora-->
+                <tr ng-repeat="empleado in empleados" ng-class="obtenerClaseEmpleado($index)" ng-click="asignarEmpleadoSeleccionado($index)">
+                    <td>{{empleado.IdEmpleado}}</td>
+                    <td>{{empleado.Cedula}}</td>
+                    <td>{{empleado.NombreEmpleado}} {{empleado.ApellidoEmpleado}}</td>
+                    <td>{{empleado.NumeroTelefonico}}</td>
+                    <td>&cent; {{empleado.Salario}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!--Es la paginacion de pedidos, subdivide en 10 pedidos por pagina-->
+        <ul class="pagination center-block">
+
+            <li><a href="#" ng-repeat="pagina in paginas">{{pagina.Numero}}</a></li>
+        </ul>
+    </div>
+
+
+</div>

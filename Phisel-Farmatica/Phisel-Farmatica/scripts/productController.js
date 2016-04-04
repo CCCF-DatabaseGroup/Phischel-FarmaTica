@@ -202,15 +202,16 @@ myApp.controller('productController', function ($scope, $http) {
             });
     };
 
-    //se modifica el producto seleccionado
-    $scope.modificarProductoSeleccionado = function (producto) {
+    //se asigna el producto seleccionado
+    $scope.asignarProductoSeleccionado = function (producto) {
         $scope.productoSeleccionado = producto;
     };
 
 
     //se llaman a los valores iniciales al controlador
-    $scope.obtenerCategoria();
     $scope.activarProvincia(0);
+    $scope.obtenerCategoria();
+
 
 
 });

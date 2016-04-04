@@ -1,15 +1,27 @@
-﻿<div ng-controller="productController" >
+﻿<!--
+    Esta visualizacion es unicamente para los tipos de usuario: Invitado, Usuario-cliente y Usuario dependiente    
+-->
+
+<div ng-controller="productController" >
     <br />
-    <!-- Son los botones que asignan la farmacia seleccionada-->
+    <!-- 
+        Son los botones que asignan la farmacia seleccionada, las farmacias disponibles son farmatica y phishel
+    -->
     <ul class="nav nav-pills center-block" style="width:175px;">
         <li ng-click="asignarFarmacia(0)" ng-class="farmaciaClass[0].estilo"><a href="#">Farmatica</a></li>
         <li ng-click="asignarFarmacia(1)" ng-class="farmaciaClass[1].estilo"><a href="#">Phishel</a></li>
+        <!--Si se desean agregar mas botones, para futuras alianzas con otras farmacias pueden insertarse aca-->
     </ul>
 
     <br />
     <!--Con esto se muestra la vista comun de los producto en este caso es para usuario cliente-->
     @RenderPage("~/Views/Utils/ProductosVistaComun.cshtml")
-    <!-- En este contenedor se visualizan los resultados de la busqueda-->
+
+    <!-- 
+        En este contenedor se visualizan los resultados de la busqueda segun los filtros establecidos por la vista comun
+        del los productos, al igual que los paneles expandibles de los productos de la vista comun este es un panel
+        expandible
+        -->
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -17,8 +29,12 @@
             </h4>
         </div>
         <div id="product_result" class="panel-collapse collapse in">
+            <!--Representa el conjunto del resultado de los productos, segun los filtros elegidos -->
             <div class="list-group">
-                <a ng-click="modificarProductoSeleccionado(producto)"
+                <!--Representa un producto se muestran los datos importantes como el precio, la descripcion del 
+                    producto, el nombre del producto la cantidad del producto disponible
+                    -->
+                <a ng-click="asignarProductoSeleccionado(producto)"
                    class="list-group-item" href="#" data-toggle="modal" data-target="#compraProducto"
                    ng-repeat="producto in productos">
                     <!--Se muestran las caracteristicas de cada producto desde el nombre, hasta el precio, como la cantidad disponible-->
@@ -26,8 +42,7 @@
                     <b> Precio: </b> &cent; {{producto.Precio}}<br />
                     <b> Descripcion del producto: </b> {{producto.Descripcion}}
                     <b> Requiere prescripcion: </b>{{producto.Prescripcion}}
-
-
+                    <!--Es la cantidad de producto disponible-->
                     <span class="badge" style="vertical-align:middle;">{{producto.Cantidad}}</span>
                     <span class="glyphicon glyphicon-shopping-cart" style="float:right;padding-right:3px;"></span>
                 </a>
@@ -37,12 +52,13 @@
     </div>
 
 
+
+
     <!-- Menu emergente para agregar el producto al carrito-->
 
     <div id="compraProducto" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
-            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -58,11 +74,14 @@
                     <b> Requiere prescripcion: </b>{{productoSeleccionado.Prescripcion}}<br />
                     <br />
                     <div style="width:90px;" class="center-block">
+                        <!--Es el boton que agrega el producto al carrito-->
                         <button type="button" class="btn btn-success" data-dismiss="modal">S&iacute;</button>
+                        <!--Es el boton que cierra el modal y no agrega el producto al carrito-->
                         <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <!--Cierra el modal-->
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>

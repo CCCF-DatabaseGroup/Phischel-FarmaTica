@@ -13,7 +13,7 @@
             </div>
             <div id="product_result" class="panel-collapse collapse in">
                 <div class="list-group">
-                    <a ng-click="modificarProductoSeleccionado(producto)"
+                    <a ng-click="asignarProductoSeleccionado(producto)"
                        class="list-group-item" href="#" data-toggle="modal" data-target="#compraProducto"
                        ng-repeat="producto in productos">
                         <b>Nombre del producto: </b>{{producto.Nombre}}
@@ -31,10 +31,18 @@
         </div>
 
 
-        <div class="button-list center-block">
-            <input class="btn btn-success button-item" id="agregar_Producto" type="button" value="Agregar Producto" />
-            <input class="btn btn-warning button-item" id="editar_Procucto" type="button" value="Editar Producto" />
-            <input class="btn btn-danger button-item" id="eliminar_Procucto" type="button" value="Eliminar Producto" />
+        <br />
+
+        <div class="botones_administrador center-block">
+            <button class="btn btn-success boton" id="agregar_Producto" type="button">
+                <span class="glyphicon glyphicon-plus"></span> Agregar Producto
+            </button>
+            <button class="btn btn-warning boton" id="editar_Procucto" type="button">
+                <span class="glyphicon glyphicon-edit"></span> Editar Producto
+            </button>
+            <button class="btn btn-danger boton" id="eliminar_Procucto" type="button">
+                <span class="glyphicon glyphicon-remove"></span> Eliminar Producto
+            </button>
         </div>
 
     </div>
