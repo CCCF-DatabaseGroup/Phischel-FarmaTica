@@ -6,6 +6,7 @@ using System.Data.Sql;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Phisel_Farmatica.Models;
 
 namespace Phisel_Farmatica.Controllers
 {
@@ -26,6 +27,7 @@ namespace Phisel_Farmatica.Controllers
         public const string USUARIO_ADMINISTRADOR_PHISHEL = "Administrador de Phishel";
         public const string USUARIO_DEPENDIENTE_PHISHEL = "Dependiente de Phishel";
         public const string USUARIO_CLIENTE = "Cliente";
+        public const int int_USUARIO_CLIENTE = 6;
         public const string FARMACIA = "Farmacia";
         public const string FARMATICA = "Farmatica";
         public const string PHISHEL = "Phishel";
@@ -41,14 +43,16 @@ namespace Phisel_Farmatica.Controllers
         {
             System.Diagnostics.Debug.WriteLine("\nIndex called");
             System.Diagnostics.Debug.WriteLine(Session["UserId"]);
-            string rango = (string)Session[RANGO_USUARIO];
-            if ( rango != null && !USUARIO_CLIENTE.Equals(rango))
+            int rango = Convert.ToInt32( Session[RANGO_USUARIO]);
+            //if ( rango != null && !USUARIO_CLIENTE.Equals(rango))
+            System.Diagnostics.Debug.WriteLine(rango+"");
+            if (int_USUARIO_CLIENTE != rango)
             {
-                if (rango.Equals(USUARIO_DEPENDIENTE_FARMATICA) || rango.Equals(USUARIO_DEPENDIENTE_PHISHEL))
+                if (rango.Equals(4) || rango.Equals(5))
                 {
                     return View("~/Views/Home/DependienteHome.cshtml");
                 }
-                else if (rango.Equals(USUARIO_ADMINISTRADOR_FARMATICA) || rango.Equals(USUARIO_ADMINISTRADOR_PHISHEL))
+                else if (rango.Equals(2) || rango.Equals(1))
                 {
                     return View("~/Views/Home/AdministradorHome.cshtml");
                 }
@@ -74,39 +78,62 @@ namespace Phisel_Farmatica.Controllers
         [HttpPost]
         public JsonResult loginUser(string userId, string userPassword)
         {
-            SqlConnection sqlcon;
-            SqlCommand sqlcommand;
-            SqlDataReader sqlreader;
             string messageReturn = "";
             try
             {
-                sqlcon = new SqlConnection(CONNECTION_STRING);
-                sqlcon.Open();
-                string commando = getUserConsultString(userId, userPassword);
-                System.Diagnostics.Debug.WriteLine(commando);
-                sqlcommand = new SqlCommand(commando,sqlcon);
-
-                sqlreader = sqlcommand.ExecuteReader();
-                if (sqlreader.Read())
-                {
-                    System.Diagnostics.Debug.WriteLine("\nExiste un usuario");
-                    Session.Add(ID_USUARIO, sqlreader[ID_USUARIO]);
-                    Session.Add(RANGO_USUARIO, sqlreader[RANGO_USUARIO]);
-                    messageReturn = "Conectado";
-                }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine("\nRayos!");
-                    messageReturn = "Contraseña o usuario invalidos";
-                }
-                sqlcon.Close();
+                
+            if (OBJ_Usuario.setUsuario(userId, userPassword)){
+                System.Diagnostics.Debug.WriteLine("\nExiste un usuario");
+                Session.Add(ID_USUARIO, OBJ_Usuario.nombre);
+                Session.Add(RANGO_USUARIO, OBJ_Usuario.rangoUsuario);
+                messageReturn = "Conectado";
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("\nRayos!");
+                messageReturn = "Contraseña o usuario invalidos";
+            }
             }
             catch (SqlException e)
             {
                 System.Diagnostics.Debug.WriteLine("\nRayos!");
                 System.Diagnostics.Debug.WriteLine(e.ToString());
             }
-            return Json(new { Response = messageReturn}, JsonRequestBehavior.AllowGet);
+            return Json(new { Response = messageReturn }, JsonRequestBehavior.AllowGet);
+
+            //SqlConnection sqlcon;
+            //SqlCommand sqlcommand;
+            //SqlDataReader sqlreader;
+            //string messageReturn = "";
+            //try
+            //{
+            //    sqlcon = new SqlConnection(CONNECTION_STRING);
+            //    sqlcon.Open();
+            //    string commando = getUserConsultString(userId, userPassword);
+            //    System.Diagnostics.Debug.WriteLine(commando);
+            //    sqlcommand = new SqlCommand(commando,sqlcon);
+
+            //    sqlreader = sqlcommand.ExecuteReader();
+            //    if (sqlreader.Read())
+            //    {
+            //        System.Diagnostics.Debug.WriteLine("\nExiste un usuario");
+            //        Session.Add(ID_USUARIO, sqlreader[ID_USUARIO]);
+            //        Session.Add(RANGO_USUARIO, sqlreader[RANGO_USUARIO]);
+            //        messageReturn = "Conectado";
+            //    }
+            //    else
+            //    {
+            //        System.Diagnostics.Debug.WriteLine("\nRayos!");
+            //        messageReturn = "Contraseña o usuario invalidos";
+            //    }
+            //    sqlcon.Close();
+            //}
+            //catch (SqlException e)
+            //{
+            //    System.Diagnostics.Debug.WriteLine("\nRayos!");
+            //    System.Diagnostics.Debug.WriteLine(e.ToString());
+            //}
+            //return Json(new { Response = messageReturn}, JsonRequestBehavior.AllowGet);
         }
         public JsonResult getUserName()
         {
