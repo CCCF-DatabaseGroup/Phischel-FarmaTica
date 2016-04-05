@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Phisel_Farmatica.Models;
 
 namespace Phisel_Farmatica.Controllers
 {
@@ -24,5 +25,18 @@ namespace Phisel_Farmatica.Controllers
             }
             return View("~/Views/RegistrarUsuario/Index.cshtml");
         }
+
+
+        public JsonResult RegistrarUsuario(string pNickname, string pContrasena,string pCorreoElectronico)
+        {
+
+            Usuario usuario = new Usuario(pNickname, pContrasena, pCorreoElectronico);
+            if (usuario.insertar())
+            {
+                return Json(new { Status = true}, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { Status =  false}, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

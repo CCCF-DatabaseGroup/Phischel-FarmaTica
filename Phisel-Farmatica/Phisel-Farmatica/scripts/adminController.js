@@ -19,7 +19,7 @@ myApp.controller('adminController', function ($scope, $http) {
         $http.get('/Product/obtenerListaSucursal')
             .success(function (result) {
                 console.log(result);
-                return result;
+                $scope.sucursales = result;
             }).error(function (data) {
                 console.log("Fail");
                 return [];
@@ -28,7 +28,8 @@ myApp.controller('adminController', function ($scope, $http) {
 
     $scope.actualizarSucursales = function () {
         console.log("Se llama a actualizar sucursales");
-        $scope.sucursales = $scope.obtenerSucursales();
+        $scope.obtenerSucursales();
+        console.log("La lista es: ", $scope.sucursales);
     };
 
 

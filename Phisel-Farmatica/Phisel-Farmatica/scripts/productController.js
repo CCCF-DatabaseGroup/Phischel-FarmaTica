@@ -208,6 +208,23 @@ myApp.controller('productController', function ($scope, $http) {
     };
 
 
+    $scope.agregarAlCarrito = function () {
+
+        console.log("llamada a -> obtener categoria");
+        //obtener las sucursales
+        $http.post('Product/agregarAlCarrito', {
+            pSucursal: $scope.sucursalSeleccionada,
+                pFarmacia: $scope.farmaciaActiveElement,
+                pProductoId: $scope.productoSeleccionado.IdProducto
+        })
+            .success(function (result) {
+                console.log(result);
+            }).error(function (data) {
+                console.log(data);
+            });
+    }
+
+
     //se llaman a los valores iniciales al controlador
     $scope.activarProvincia(0);
     $scope.obtenerCategoria();

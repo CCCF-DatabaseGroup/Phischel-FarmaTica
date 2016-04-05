@@ -6,6 +6,7 @@ using System.Data.Sql;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Phisel_Farmatica.Models;
 
 namespace Phisel_Farmatica.Controllers
 {
@@ -29,6 +30,8 @@ namespace Phisel_Farmatica.Controllers
         public const string FARMACIA = "Farmacia";
         public const string FARMATICA = "Farmatica";
         public const string PHISHEL = "Phishel";
+        public const string CARRITO = "Carrito";
+        
 
         public const string PROVINCIA = "Provincia";
 
@@ -42,7 +45,7 @@ namespace Phisel_Farmatica.Controllers
             System.Diagnostics.Debug.WriteLine("\nIndex called");
             System.Diagnostics.Debug.WriteLine(Session["UserId"]);
             string rango = (string)Session[RANGO_USUARIO];
-            if ( rango != null && !USUARIO_CLIENTE.Equals(rango))
+            if (rango != null && !USUARIO_CLIENTE.Equals(rango))
             {
                 if (rango.Equals(USUARIO_DEPENDIENTE_FARMATICA) || rango.Equals(USUARIO_DEPENDIENTE_PHISHEL))
                 {
@@ -56,58 +59,49 @@ namespace Phisel_Farmatica.Controllers
                 {
                     return View("~/Views/Home/SuperAdministratorHome.cshtml");
                 }
-                
+
             }
             else return View("~/Views/Home/Index.cshtml");
         }
 
-        public ActionResult Index2(string data)
-        {
-            System.Diagnostics.Debug.WriteLine("\nIndex 2 called");
-            return View("~/Views/Home/Index2.cshtml");
-        }
-        private string getUserConsultString(string userId, string userPassword)
-        {
-            return "exec acceso '" + userId + "', '" + userPassword + "';";
-        }
+
+
 
         [HttpPost]
         public JsonResult loginUser(string userId, string userPassword)
         {
-            SqlConnection sqlcon;
-            SqlCommand sqlcommand;
-            SqlDataReader sqlreader;
-            string messageReturn = "";
-            try
-            {
-                sqlcon = new SqlConnection(CONNECTION_STRING);
-                sqlcon.Open();
-                string commando = getUserConsultString(userId, userPassword);
-                System.Diagnostics.Debug.WriteLine(commando);
-                sqlcommand = new SqlCommand(commando,sqlcon);
+            if (userId == null) userId = "";
+            if (userPassword == null) userPassword = "";
 
-                sqlreader = sqlcommand.ExecuteReader();
-                if (sqlreader.Read())
-                {
-                    System.Diagnostics.Debug.WriteLine("\nExiste un usuario");
-                    Session.Add(ID_USUARIO, sqlreader[ID_USUARIO]);
-                    Session.Add(RANGO_USUARIO, sqlreader[RANGO_USUARIO]);
-                    messageReturn = "Conectado";
-                }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine("\nRayos!");
-                    messageReturn = "Contraseña o usuario invalidos";
-                }
-                sqlcon.Close();
-            }
-            catch (SqlException e)
+            Usuario usuario = new Usuario(userId, userPassword);
+            var messageReturn = "";            
+            if (usuario.obtener())
             {
-                System.Diagnostics.Debug.WriteLine("\nRayos!");
-                System.Diagnostics.Debug.WriteLine(e.ToString());
+                System.Diagnostics.Debug.WriteLine("\nExiste un usuario");
+                Session.Add(ID_USUARIO, usuario._IdUsuario);
+                Session.Add(RANGO_USUARIO, usuario._RangoUsuario);
+                if (usuario._RangoUsuario.Equals(USUARIO_DEPENDIENTE_FARMATICA) ||
+                    usuario._RangoUsuario.Equals(USUARIO_ADMINISTRADOR_FARMATICA))
+                {
+                    Session.Add(FARMACIA, FARMATICA);
+                }
+                else if (usuario._RangoUsuario.Equals(USUARIO_DEPENDIENTE_PHISHEL) ||
+                    usuario._RangoUsuario.Equals(USUARIO_ADMINISTRADOR_PHISHEL))
+                {
+                    Session.Add(FARMACIA, PHISHEL);
+                }
+                messageReturn = "Conectado";
             }
-            return Json(new { Response = messageReturn}, JsonRequestBehavior.AllowGet);
+            else{
+                System.Diagnostics.Debug.WriteLine("\nRayos!");
+                messageReturn = "Contraseña o usuario invalidos";
+            }
+            return Json(new { Response = messageReturn }, JsonRequestBehavior.AllowGet);
         }
+
+
+
+
         public JsonResult getUserName()
         {
             return Json(new { UserId = Session[ID_USUARIO] }, JsonRequestBehavior.AllowGet);

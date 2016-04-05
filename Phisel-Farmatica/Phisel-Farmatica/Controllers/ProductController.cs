@@ -4,7 +4,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using Phisel_Farmatica.Models;
+using System.Web.Script.Serialization;
 namespace Phisel_Farmatica.Controllers
 {
     public class ProductController : Controller
@@ -97,28 +98,18 @@ namespace Phisel_Farmatica.Controllers
         public JsonResult obtenerListaSucursal()
         {
 
+
             /**
             Formato Json:
             [{Nombre:"",Canton:"",Distrito:""},...,{Nombre:"",Canton:"",Distrito:""}]
             */
             System.Diagnostics.Debug.WriteLine("Obteniendo sucursales...");
-            List<object> sucursales = new List<object>();
-            sqlreader = doQuery("exec obtenerSucursalesEnProvinciaPorFarmacia '" + Session[HomeController.PROVINCIA] +"', '"+ Session[HomeController.FARMACIA] +  "';");
-            if (sqlreader != null)
-            {
-                System.Diagnostics.Debug.WriteLine("reader es diferente de null");
-                while (sqlreader.Read())
-                {
-                    System.Diagnostics.Debug.WriteLine("se puede leer");
-                    sucursales.Add(new
-                    {
-                        Nombre = (string)sqlreader[NOMBRE_SUCURSAL],
-                        Canton = (string)sqlreader[CANTON],
-                        Distrito = (string)sqlreader[DISTRITO]
-                    });
-                }
-            }
-            sqlcon.Close();
+            string provincia = (string)Session[HomeController.PROVINCIA];
+            string farmacia = (string)Session[HomeController.FARMACIA];
+            System.Diagnostics.Debug.WriteLine("Farmacia " +provincia);
+            System.Diagnostics.Debug.WriteLine("Provincia " + farmacia);
+            Sucursal sucursal = new Sucursal(provincia, farmacia);
+            var sucursales = sucursal.obtenerIterativamente().ToList();
             return Json(sucursales, JsonRequestBehavior.AllowGet);
         }
 
@@ -131,23 +122,10 @@ namespace Phisel_Farmatica.Controllers
 
             /**
             Formato Json:
-            [{Nombre:"",Ubicacion:""},...,{Nombre:"",Ubicacion:""}]
+            [{Nombre:""},...,{Nombre:""}]
             */
-            List<object> categorias = new List<object>();
-            sqlreader = doQuery("exec obtenerCategoriaProducto");
-            if (sqlreader != null)
-            {
-                System.Diagnostics.Debug.WriteLine("reader es diferente de null");
-                while (sqlreader.Read())
-                {
-                    System.Diagnostics.Debug.WriteLine("se puede leer");
-                    categorias.Add(new
-                    {
-                        Nombre = (string)sqlreader[NOMBRE_CATEGORIA],
-                    });
-                }
-            }
-            sqlcon.Close();
+            CategoriaProducto categoria = new CategoriaProducto();
+            var categorias = categoria.obtenerIterativamente().ToList();
             return Json(categorias, JsonRequestBehavior.AllowGet);
         }
 
@@ -167,25 +145,16 @@ namespace Phisel_Farmatica.Controllers
                     ]
                 2) [{EstadoSolicitud:false}]
             */
-            List<object> productos = new List<object>();
-            sqlreader = doQuery("exec obtenerProductoDeSucursal '"+ Session[HomeController.FARMACIA] + "', '" + pSucursal + "', '" + pCategoria +"';");
-            if (sqlreader != null)
+            if (pSucursal == null)
             {
-                System.Diagnostics.Debug.WriteLine("reader es diferente de null");
-                while (sqlreader.Read())
-                {
-                    System.Diagnostics.Debug.WriteLine("se puede leer");
-                    productos.Add(new
-                    {
-                        Nombre = (string)sqlreader[NOMBRE_PRODUCTO],
-                        Descripcion = (string)sqlreader[DESCRIPCION_PRODUCTO],
-                        Prescripcion = ((bool)sqlreader[PRESCRIPCION_PRODUCTO])?"Si":"No",
-                        Cantidad = (int)sqlreader[CANTIDAD_BODEGA],
-                        Precio = sqlreader[PRECIO_PRODUCTO]
-                    });
-                }
+                pSucursal = "";
             }
-            sqlcon.Close();
+            if (pCategoria == null) pCategoria = "";
+
+            Producto producto = new Producto((string)Session[HomeController.FARMACIA], pSucursal, pCategoria);
+
+            List<object> productos = producto.obtenerIterativamente().ToList();
+            //sqlreader = doQuery("exec obtenerProductoDeSucursal '"+ Session[HomeController.FARMACIA] + "', '" + pSucursal + "', '" + pCategoria +"';");
             return Json(productos, JsonRequestBehavior.AllowGet);
         }
 
@@ -287,15 +256,7 @@ namespace Phisel_Farmatica.Controllers
         [HttpPost]
         public JsonResult agregarCantidadProductoSucursal(int pIdProducto,int pCantidadProducto)
         {
-            SqlDataReader reader = doQuery("");
-            if (reader != null)
-            {
-
-            }
-            else
-            {
-
-            }
+            
             return Json(new { name = "" }, JsonRequestBehavior.AllowGet);
         }
 
@@ -304,93 +265,20 @@ namespace Phisel_Farmatica.Controllers
             agregarAlCarrito: agrega al carrito un producto
         */
         [HttpPost]
-        public JsonResult agregarAlCarrito(int pProductoId)
+        public JsonResult agregarAlCarrito(string pSucursal, string pFarmacia,int pProductoId)
         {
-            SqlDataReader reader = doQuery("");
-            if (reader != null)
+            Producto producto = new Producto(pProductoId, (string)Session[HomeController.FARMACIA], pSucursal);
+            object carrito = Session[HomeController.CARRITO];
+            if (carrito == null)
             {
-
+                Session.Add(HomeController.CARRITO, new List<Producto>());
+                carrito = Session[HomeController.CARRITO];
             }
-            else
-            {
-
-            }
-            return Json(new { name = "" }, JsonRequestBehavior.AllowGet);
-        }
-
-        /**
-            eliminarDelCarrito: elimina del carrito un producto
-        */
-        [HttpPost]
-        public JsonResult eliminarDelCarrito(int pProductoId)
-        {
-            SqlDataReader reader = doQuery("");
-            if (reader != null)
-            {
-
-            }
-            else
-            {
-
-            }
-            return Json(new { name = "" }, JsonRequestBehavior.AllowGet);
-        }
-
-        /**
-            cambiarCantidadProductoEnCarrito: Cambia la cantidad del producto en el carrito
-        */
-        [HttpPost]
-        public JsonResult cambiarCantidadProductoEnCarrito(int pProductoId,int pCantidad)
-        {
-            SqlDataReader reader = doQuery("");
-            if (reader != null)
-            {
-
-            }
-            else
-            {
-
-            }
-            return Json(new { name = "" }, JsonRequestBehavior.AllowGet);
+            ((List<Producto>)carrito).Add(producto);
+            return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
         }
 
 
-        /**
-         comprarCarrito los objetos del carrito, retorna la factura
-        */
-        [HttpPost]
-        public JsonResult comprarCarrito()
-        {
-            SqlDataReader reader = doQuery("");
-            if (reader != null)
-            {
-
-            }
-            else
-            {
-
-            }
-            return Json(new { name = "" }, JsonRequestBehavior.AllowGet);
-        }
-
-
-        /**
-         Pepara la factura, calcula los productos disponibles, etc
-        */
-        [HttpPost]
-        public JsonResult prepararFactura()
-        {
-            SqlDataReader reader = doQuery("");
-            if (reader != null)
-            {
-
-            }
-            else
-            {
-
-            }
-            return Json(new { name = "" }, JsonRequestBehavior.AllowGet);
-        }
 
 
         /**

@@ -17,8 +17,8 @@
     <div class="form-inline">
         <p for="#sucursal" class="text-center"><b>Sucursal:</b></p>
         <select id="sucursal" class="center-block">
-            <option ng-repeat="sucursal in sucursales">
-                {{sucursal.Nombre}}
+            <option ng-repeat="sucursal in sucursales" ng-click="seleccionarSucursal(sucursal)">
+                {{sucursal.Nombre}}<p>, </p><b>Canton </b>{{sucursal.Canton}}<p>, </p><b>Distrito </b>{{sucursal.Distrito}}
             </option>
         </select>
     </div>

@@ -1,7 +1,8 @@
-﻿<div ng-controller="mainController">
+﻿<div ng-controller="registroController">
 
     
     <form role="form" class="center-block formulario">
+        <!--
         <div class="seccion_formulario">
             <h2>Datos personales</h2>
             <div class="form-group">
@@ -34,7 +35,7 @@
                 <input maxlength="100" class="form-control" id="recidencia" ng-model="usuario_Residencia">
             </div>
         </div>
-
+        -->
         <div class="seccion_formulario">
 
             <h2>Datos de usuario</h2>
@@ -51,11 +52,14 @@
                 <label for="contrasenia">Contrase&ntilde;a:</label>
                 <input maxlength="20" type="password" class="form-control" id="contrasenia" ng-model="usuario_Contrasenia">
             </div>
+            <a class="login_message">{{advertenciaUsuarioRegistrado}}</a>
+            <!--
             <div class="form-group">
                 <label for="padecimiento">Describa los padecimiento que tiene: (maximo 1000 caract&eacute;res)</label>
                 <textarea maxlength="1000" class="form-control" style="height:200px;" id="padecimiento" ng-model="usuario_Padecimientos"></textarea>
             </div>
-            <button type="submit" class="btn btn-success center-block">Registrar</button>
+                -->
+            <button ng-click="registrarUsuario()" type="submit" class="btn btn-success center-block">Registrar</button>
         </div>
     </form>
 

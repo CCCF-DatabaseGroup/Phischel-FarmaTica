@@ -26,33 +26,66 @@
             <div id="product_in_cart{{$index}}" class="panel-collapse collapse in">
                 <ul class="list-group">
                     <li class="list-group-item"
-                        ng-repeat="producto in sucursalProducto.ListaSucursal">
+                        ng-repeat="producto in sucursalProducto.ListaSucursal" ng-init="iniciarCantidadAComprar(producto)">
                         <b>Nombre del producto: </b>{{producto.Nombre}}<br />
                         <b> Precio: </b> &cent; {{producto.Precio}}<br />
-                        <a href="#" class="link_rojo">
-                            <span ng-click="eliminarProducto(sucursalProducto,$index)" class="glyphicon glyphicon-minus-sign" style="float:right;padding-right:3px;"></span>
+                        <a href="" class="link_rojo">
+                            <span ng-click="eliminarProducto(sucursalProducto,producto)" class="glyphicon glyphicon-minus-sign icono_mediano" style="float:right;padding-right:3px;"></span>
                         </a>
-                        <a href="#" class="link_rojo">
-                            <span ng-click="decrementarCantidadProducto(producto)" class="glyphicon glyphicon-arrow-down" style="float:right;padding-right:3px;"></span>
+                        <a href="" class="link_rojo">
+                            <span ng-click="decrementarCantidadProducto(producto)" class="glyphicon glyphicon-arrow-down icono_mediano" style="float:right;padding-right:3px;"></span>
                         </a>
-                        <a href="#" class="link_rojo">
-                            <span ng-click="aumentarCantidadProducto(producto)" class="glyphicon glyphicon-arrow-up" style="float:right;padding-right:3px;"></span>
+                        <a href="" class="link_rojo">
+                            <span ng-click="aumentarCantidadProducto(producto)" class="glyphicon glyphicon-arrow-up icono_mediano" style="float:right;padding-right:3px;"></span>
                         </a>
                         
                         <b> Descripcion del producto: </b> {{producto.Descripcion}}<br />
                         <b> Requiere prescripcion: </b>{{producto.Prescripcion}}<br />
                         <b> Cantidad: </b>{{producto.Cantidad}}<br />
+                        <b> Cantidad a comprar</b> {{producto.CantidadAComprar}}<br />
 
                     </li>
                 </ul>
             </div>
             <div class="panel-footer">
-                <input class="btn btn-success" type="button" value="Comprar" />
-                <input ng-click="eliminarSucursal($index)" class="btn btn-danger" type="button" value="Eliminar compra" />
-
+                <input ng-click="asiginarSucursalProductoActivo(sucursalProducto);obtenerTotalCompra(SucursalProductoActivo)"  data-toggle="modal" data-target="#asegurarCommpra" class="btn btn-success" type="button" value="Comprar" />{{necesarioIniciarSesion}}
             </div>
 
-        </div>
+            <!-- Modal -->
+            <div id="asegurarCommpra" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Este es un modal emergente que se encarga de solicitar los datos del usuario para que pueda logearse-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <!--Este es el titulo del modal emergente-->
+                            <h4 class="modal-title">¿Esta seguro que desea comprar?</h4>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <p ng-repeat="producto in SucursalProductoActivo.ListaSucursal">
+                                {{producto.Nombre}}  <b>Precio: </b>&cent;{{producto.Precio}} <b>Cantidad a Comprar: </b>{{producto.CantidadAComprar}}
+                                </p>
+                            <p class="link_rojo">Total: &cent;{{total}}</p>
+
+                            <input data-toggle="modal" data-target="#asegurarCommpra" class="btn btn-success" type="button" value="Comprar" />
+                        </div>
+                        <!--Este es el footer donde el boton close cierra el modal-->
+                        <div class="modal-footer">
+                            <!--Este boton cierra el modal-->
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
         
     </div>
 </div>
