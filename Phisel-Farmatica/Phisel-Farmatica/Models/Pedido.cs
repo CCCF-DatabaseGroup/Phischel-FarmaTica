@@ -11,10 +11,19 @@ namespace Phisel_Farmatica.Models
     {
 
         public int _IdPedido { get; set; }
+        public int _IdEmpleado { get; set; }
         public string _NombreCliente { get; set; }
         public string _ApellidoCliente { get; set; }
         public decimal _AlCobro { get; set; }
         public DateTime _HoraYFecha { get; set; }
+
+
+        public const string ID_EMPLEADO_PARAM = "@IdEmpleado";
+        public const string PROCEDIMIENTO_SOLICITAR_PEDIDOS = "solicitarPedido";
+
+
+        public string _ProcedimientoActivo = PROCEDIMIENTO_SOLICITAR_PEDIDOS;
+
 
         protected override object contextualizar(DataRow pTablaDatos)
         {
@@ -30,7 +39,15 @@ namespace Phisel_Farmatica.Models
 
         protected override List<SqlParameter> obtenerParametrosObtencion()
         {
-            throw new NotImplementedException();
+
+            List<SqlParameter> _Parametros = new List<SqlParameter>();
+
+            SqlParameter pIdEmpleado = new SqlParameter();
+            pIdEmpleado.ParameterName = ID_EMPLEADO_PARAM;
+            pIdEmpleado.SqlDbType = SqlDbType.Int;
+            pIdEmpleado.Value = _IdEmpleado;
+
+            return _Parametros;
         }
 
         protected override List<SqlParameter> obtenerParametrosInsercion()
@@ -40,7 +57,7 @@ namespace Phisel_Farmatica.Models
 
         protected override string obtenerProcedimientoDeObtencion()
         {
-            throw new NotImplementedException();
+            return _ProcedimientoActivo;
         }
 
         protected override string obtenerProcedimientoDeInsercion()
