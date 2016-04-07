@@ -14,7 +14,7 @@
             <div id="product_result" class="panel-collapse collapse">
                 <div class="list-group">
                     <a ng-click="asignarProductoSeleccionado(producto)"
-                       class="list-group-item" href="#" data-toggle="modal" data-target="#compraProducto"
+                       class="list-group-item"
                        ng-repeat="producto in productos">
                         <b>Nombre del producto: </b>{{producto.Nombre}}
                         <b> Precio: </b> &cent; {{producto.Precio}}<br />
@@ -29,68 +29,14 @@
                 <div class="panel-footer"></div>
             </div>
             @RenderPage("~/Views/Utils/RegistrarProducto.cshtml")
+            @RenderPage("~/Views/Utils/EditarProducto.cshtml")
+            @RenderPage("~/Views/Utils/AgregarProductoEnSucursal.cshtml")
+            @RenderPage("~/Views/Utils/EditarProductoEnSucursal.cshtml")
 
         </div>
 
         <br />
-
-        <div class="botones_administrador center-block">
-            <button class="btn btn-success boton" id="agregar_Producto" type="button">
-                <span class="glyphicon glyphicon-plus"></span> Agregar Producto
-            </button>
-            <button class="btn btn-warning boton" id="editar_Procucto" type="button">
-                <span class="glyphicon glyphicon-edit"></span> Editar Producto
-            </button>
-            <button class="btn btn-danger boton" id="eliminar_Procucto" type="button">
-                <span class="glyphicon glyphicon-remove"></span> Eliminar Producto
-            </button>
-        </div>
-
     </div>
 
-
-    <!--Menu de compra y administracion de producto-->
-    <div id="compraProducto" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Comprar</h4>
-                </div>
-
-
-                <!--#######################################################-->
-                <div class="modal-body">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#home">Administrar</a></li>
-                        <li><a data-toggle="tab" href="#menu1">Compra</a></li>
-                    </ul>
-
-                    <div class="tab-content">
-                        <div id="home" class="tab-pane fade in active">
-                            <!-- Form para administrar producto -->
-                            <h3>HOME</h3>
-                            <p>Some content.</p>
-                        </div>
-                        <div id="menu1" class="tab-pane fade">
-                            <!-- Form para hacer la compra -->
-                            <h3>Menu 1</h3>
-                            <p>Some content in menu 1.</p>
-                        </div>
-                    </div>
-
-                    <!--#######################################################-->
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
 
 </div>

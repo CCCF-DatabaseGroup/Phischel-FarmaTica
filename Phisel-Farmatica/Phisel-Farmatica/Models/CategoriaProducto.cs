@@ -13,13 +13,15 @@ namespace Phisel_Farmatica.Models
         public string Nombre { get; set; }
 
         public const string NOMBRE_CATEGORIA_HEADER = "Nombre_categoria";
+        public const string HEADER_ID_CATEGORIA = "Id_categoria";
 
         public const string PROCEDIMIENTO = "obtenerCategoriaProducto";
 
         protected override object contextualizar(DataRow pTablaDatos)
         {
+
             Nombre = (string)pTablaDatos[NOMBRE_CATEGORIA_HEADER];
-            return new { Nombre = Nombre };
+            return new { Nombre = Nombre, IdCategoria = (int)pTablaDatos[HEADER_ID_CATEGORIA] };
         }
 
         protected override List<SqlParameter> obtenerParametrosObtencion()

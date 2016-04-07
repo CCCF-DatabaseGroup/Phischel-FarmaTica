@@ -128,6 +128,7 @@ namespace Phisel_Farmatica.Models
 
 
                 SqlComando.ExecuteNonQuery();
+                SqlComando.Parameters.Clear();
                 aRetornar = true;
             }
 
@@ -147,12 +148,19 @@ namespace Phisel_Farmatica.Models
 
 
 
-        public bool insertar()
+        public virtual bool insertar()
         {
             bool aRetornar = conexionGenerica(obtenerProcedimientoDeInsercion(), obtenerParametrosInsercion());
             
             return aRetornar;
 
+        }
+
+        public virtual bool editar()
+        {
+            bool aRetornar = conexionGenerica(obtenerProcedimientoDeInsercion(), obtenerParametrosInsercion());
+
+            return aRetornar;
         }
 
         /*

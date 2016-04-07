@@ -230,5 +230,24 @@ myApp.controller('productController', function ($scope, $http) {
     $scope.obtenerCategoria();
 
 
+    //registrarProducto(string pNombreProducto, int pIdCategoria,int pIdLaboratorio,bool pPreescripcion, string pDescripcion)
+
+    $scope.registrarProducto = function () {
+
+        console.log("llamada a -> obtener categoria");
+        //obtener las sucursales
+        $http.post('Product/registrarProducto', {
+            pNombreProducto: $scope.nombreProductoARegistrar,
+            pIdCategoria: $scope.tipo_producto[$scope.categoriaSeleccionada].IdCategoria,
+            pIdLaboratorio: 1,
+            pPreescripcion: false,
+            pDescripcion: ""
+        })
+            .success(function (result) {
+                console.log(result);
+            }).error(function (data) {
+                console.log(data);
+            });
+    }
 
 });

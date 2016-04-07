@@ -35,14 +35,6 @@ namespace Phisel_Farmatica.Controllers
             {
                 return View();
             }
-            else if (HomeController.USUARIO_DEPENDIENTE_FARMATICA.Equals(Session[HomeController.RANGO_USUARIO]))
-            {
-                return View("~/Views/Product/CompraProducto.cshtml");
-            }
-            else if (HomeController.USUARIO_DEPENDIENTE_PHISHEL.Equals(Session[HomeController.RANGO_USUARIO]))
-            {
-                return View("~/Views/Product/CompraProducto.cshtml");
-            }
             else if (HomeController.USUARIO_ADMINISTRADOR_PHISHEL.Equals(Session[HomeController.RANGO_USUARIO]))
             {
                 return View("~/Views/Product/AdministrarProductos.cshtml");
@@ -167,17 +159,10 @@ namespace Phisel_Farmatica.Controllers
             La primera para actualizacion exitosa y la segunda para actualizacion fallida
         */
         [HttpPost]
-        public JsonResult actualizarProducto(/*Datos del Producto*/)
+        public JsonResult actualizarProducto(int pIdProducto,string pNombreProducto, int pIdCategoria, int pIdLaboratorio, bool pPreescripcion, string pDescripcion)
         {
-            SqlDataReader reader = doQuery("");
-            if (reader != null)
-            {
-
-            }
-            else
-            {
-
-            }
+            Producto producto = new Producto(pIdProducto, pNombreProducto, pIdCategoria, pIdLaboratorio, pPreescripcion, pDescripcion);
+            producto.editar();
             return Json(new { name = "" }, JsonRequestBehavior.AllowGet);
         }
 
@@ -191,15 +176,7 @@ namespace Phisel_Farmatica.Controllers
         */
         public JsonResult eliminarProducto(/*Producto*/)
         {
-            SqlDataReader reader = doQuery("");
-            if (reader != null)
-            {
-
-            }
-            else
-            {
-
-            }
+            
             return Json(new { name = "" }, JsonRequestBehavior.AllowGet);
         }
 
@@ -212,17 +189,11 @@ namespace Phisel_Farmatica.Controllers
             La primera para Insercion exitosa y la segunda para Insercion fallida
         */
         [HttpPost]
-        public JsonResult agregarProducto(/*Producto*/)
+        public JsonResult registrarProducto(string pNombreProducto, int pIdCategoria,int pIdLaboratorio,bool pPreescripcion, string pDescripcion)
         {
-            SqlDataReader reader = doQuery("");
-            if (reader != null)
-            {
-
-            }
-            else
-            {
-
-            }
+            Producto producto = new Producto(pNombreProducto, pIdCategoria, pIdLaboratorio,pPreescripcion, pDescripcion);
+            producto.insertar();
+            //Pendiente actualizacion de datos, tiene que hacerse desde AngularJs
             return Json(new { name = "" }, JsonRequestBehavior.AllowGet);
         }
 

@@ -1,29 +1,37 @@
 ﻿
-<div class="panel panel-default" ng-controller="productController">
+<div class="panel panel-default" ng-controller="adminController">
     <div class="panel-heading">
         <h4 class="panel-title">
-            <a data-toggle="collapse" href="#registro_producto">Registrar Producto</a>
+            <a data-toggle="collapse" href="#editar_producto">Editar Producto</a>
         </h4>
     </div>
-
-    <div id="registro_producto" class="panel-collapse collapse form-group">
+    <div id="editar_producto" class="panel-collapse collapse form-group">
         <div class="registro_producto">
             <br />
             <div>
+                <label for="producto_list">Seleccione el producto: </label>
+                <select class="form-control" id="producto_list">
+                    <option></option>
+
+                </select>
+
+            </div>
+            <div>
                 <label for="nombre_producto">Nombre Producto: </label>
-                <input ng-model="nombreProductoARegistrar" class="form-control" id="nombre_producto" type="text" />
+                <input class="form-control" id="nombre_producto" type="text" />
+
             </div>
             <div>
                 <label for="categoria">Categoria: </label>
                 <select class="form-control" id="categoria">
-                    <option ng-click="seleccionarCategoria(categoria,$index)" ng-repeat="categoria in tipo_producto">{{categoria.Nombre}}</option>
+                    <option></option>
 
                 </select>
             </div>
             <div>
                 <label for="laboratorio">Laboratorio: </label>
                 <select class="form-control" id="laboratorio">
-                    <option ng-repeat="laboratorio in laboratorios">{{laboratorio.Nombre}}</option>
+                    <option></option>
 
                 </select>
             </div>
@@ -41,10 +49,9 @@
             </div>
             <div class="center-block">
                 <br />
-                <input ng-click="registrarProducto()" class="btn btn-success center-block" type="button" value="Registrar" />
+                <input class="btn btn-warning center-block" type="button" value="Editar" />
             </div>
         </div>
-
         <div class="panel-footer"></div>
     </div>
 </div>

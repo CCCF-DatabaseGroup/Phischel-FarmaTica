@@ -4,6 +4,12 @@
 
 
 
+.registro_producto{
+    width:280px;
+    margin:0px auto;
+}
+
+
 .presentation_header{
     font-family:Roboto !important; 
     font-weight:200;

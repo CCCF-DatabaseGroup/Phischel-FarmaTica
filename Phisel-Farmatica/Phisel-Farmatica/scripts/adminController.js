@@ -20,6 +20,7 @@ myApp.controller('adminController', function ($scope, $http) {
             .success(function (result) {
                 console.log(result);
                 $scope.sucursales = result;
+                $scope.sucursalSeleccionada = sucursales[0].Nombre;
             }).error(function (data) {
                 console.log("Fail");
                 return [];
@@ -47,6 +48,15 @@ myApp.controller('adminController', function ($scope, $http) {
                 console.log(data);
             });
     };
+
+    $scope.seleccionarProvincia($scope.provincias[0]);
+
+
+    $scope.seleccionarSucursal = function (sucursal) {
+        
+        $scope.sucursalSeleccionada = sucursal.Nombre;
+    };
+
 
 
     $scope.obtenerClaseEmpleado = function (index) {

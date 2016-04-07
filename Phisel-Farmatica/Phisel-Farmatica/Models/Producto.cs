@@ -12,6 +12,8 @@ namespace Phisel_Farmatica.Models
 
         public const string PROCEDIMIENTO = "obtenerProductoDeSucursal";
         public const string PROCEDIMIENTO_OBTENCION_POR_ID = "obtenerProductoDeSucursalPorId";
+        public const string PROCEDIMIENTO_INSERCION = "insertarProducto";
+        public const string PROCEDIMIENTO_EDICION = "obtenerProductoDeSucursalPorId";
         public const string NOMBRE_PRODUCTO = "Nombre_producto";
         public const string DESCRIPCION_PRODUCTO = "Descripcion";
         public const string PRESCRIPCION_PRODUCTO = "Prescripcion";
@@ -22,11 +24,19 @@ namespace Phisel_Farmatica.Models
         public const string SUCURSAL_PARAM = "@Sucursal";
         public const string CATEGORIA_PARAM = "@Categoria";
         public const string ID_PRODUCTO_PARAM = "@IdProducto";
+        public const string PARAM_ID_LABORATORIO_PRODUCTO = "@idLaboratorio";
+        public const string PARAM_NOMBRE_PRODUCTO = "@nombre";
+        public const string PARAM_PRESCRIPCION_PRODUCTO = "@prescripcion";
+        public const string PARAM_ID_CATEGORIA_PRODUCTO = "@idCategoria";
+        public const string PARAM_DESCRIPCION_PRODUCTO = "@descripcion";
+        public const string PARAM_EXITO = "@exito";
 
 
         public string _ProcedimientoActivo = PROCEDIMIENTO;
 
         public int _IdProducto { get; set; }
+        public int _IdCategoria { get; set; }
+        public int _IdLaboratorio { get; set; }        
         public string _Nombre { get; set; }
         public string _NombreSucursal { get; set; }
         public string _NombreFarmacia { get; set; }
@@ -56,6 +66,28 @@ namespace Phisel_Farmatica.Models
             _ProcedimientoActivo = PROCEDIMIENTO_OBTENCION_POR_ID;
 
         }
+
+        public Producto(string pNombreProducto, int pIdCategoria, int pIdLaboratorio, bool pPreescripcion, string pDescripcion)
+        {
+            this._Nombre = pNombreProducto;
+            this._IdCategoria = pIdCategoria;
+            this._IdLaboratorio = pIdLaboratorio;
+            this._Prescripcion = pPreescripcion;
+            this._Descripcion = pDescripcion;
+        }
+
+
+        public Producto(int pIdProducto, string pNombreProducto, int pIdCategoria, int pIdLaboratorio, bool pPreescripcion, string pDescripcion)
+        {
+            this._Nombre = pNombreProducto;
+            this._IdProducto = pIdProducto;
+            this._IdCategoria = pIdCategoria;
+            this._IdLaboratorio = pIdLaboratorio;
+            this._Prescripcion = pPreescripcion;
+            this._Descripcion = pDescripcion;
+        }
+
+
 
 
         protected override object contextualizar(DataRow pTablaDatos)
@@ -104,6 +136,41 @@ namespace Phisel_Farmatica.Models
             _Parametros.Add(pNombreCategoria);
         }
 
+
+        public override bool insertar()
+        {
+            _Parametros = new List<SqlParameter>();
+            _Parametros.Add(new SqlParameter(PARAM_ID_LABORATORIO_PRODUCTO,_IdLaboratorio));
+            _Parametros.Add(new SqlParameter(PARAM_NOMBRE_PRODUCTO,_Nombre));
+            _Parametros.Add(new SqlParameter(PARAM_PRESCRIPCION_PRODUCTO,_Prescripcion));
+            _Parametros.Add(new SqlParameter(PARAM_ID_CATEGORIA_PRODUCTO,_IdCategoria));
+            _Parametros.Add(new SqlParameter(PARAM_DESCRIPCION_PRODUCTO,_Descripcion));
+            SqlParameter pExito = new SqlParameter();
+            pExito.ParameterName = PARAM_EXITO;
+            pExito.SqlDbType = SqlDbType.Bit;
+            pExito.Direction = ParameterDirection.Output;
+            _Parametros.Add(pExito);
+            bool aRetornar = conexionGenerica(PROCEDIMIENTO_INSERCION, _Parametros);
+
+            return aRetornar;
+
+        }
+
+        public override bool editar()
+        {
+            _Parametros = new List<SqlParameter>();
+            _Parametros.Add(new SqlParameter());
+            _Parametros.Add(new SqlParameter());
+            _Parametros.Add(new SqlParameter());
+            _Parametros.Add(new SqlParameter());
+            bool aRetornar = conexionGenerica(PROCEDIMIENTO_EDICION, _Parametros);
+
+            return aRetornar;
+
+        }
+
+
+
         protected void obtenerParametrosObtencionConfiltro()
         {
 
@@ -143,6 +210,7 @@ namespace Phisel_Farmatica.Models
         {
             throw new NotImplementedException();
         }
+
 
         protected override List<SqlParameter> obtenerParametrosInsercion()
         {

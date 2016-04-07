@@ -1,0 +1,51 @@
+﻿
+<div class="panel panel-default" ng-controller="productController">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" href="#agregarproductosucursal">Agregar Producto en sucursal</a>
+        </h4>
+    </div>
+    <div id="agregarproductosucursal" class="panel-collapse collapse form-group">
+        <br />
+        <div class="registro_producto">
+            <div>
+                <label for="provincia_list">Seleccione la provincia: </label>
+                <select class="form-control" id="provincia_list">
+                    <option></option>
+
+                </select>
+
+            </div>
+            <div>
+                <label for="sucursal_list">Seleccione la sucursal: </label>
+                <select class="form-control" id="sucursal_list">
+                    <option></option>
+
+                </select>
+
+            </div>
+            <div>
+                <label for="producto_list">Seleccione el producto: </label>
+                <select class="form-control" id="producto_list">
+                    <option></option>
+
+                </select>
+
+            </div>
+            <div>
+                <label for="costo">Costo: </label>
+                <input class="form-control" id="costo" type="number" />
+
+            </div>
+            <div>
+                <label for="Cantidad_bodega">Cantidad bodega: </label>
+                <input class="form-control" id="Cantidad_bodega" type="number" />
+            </div>
+            <br />
+            <input class="btn btn-success center-block" type="button" value="Agregar producto sucursal" />
+
+        </div>
+
+        <div class="panel-footer"></div>
+    </div>
+</div>
