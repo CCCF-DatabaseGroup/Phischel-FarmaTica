@@ -15,15 +15,18 @@ namespace Phisel_Farmatica.Models
         public static string NombreSucursal { set; get; }
         public static string Distrito { set; get; }
         public static string Canton { set; get; }
+        public static int Id_sucursal { set; get; }
 
         public const string FARMACIA_PARAM = "@farmacia";
         public const string PROVINCIA_PARAM = "@provincia";
         public const string PROCEDIMIENTO = "obtenerSucursalesEnProvinciaPorFarmacia";
 
 
+
+        public const string ID_SUCURSAL = "Id_sucursal";
         public const string NOMBRE_SUCURSAL_HEADER = "Nombre_sucursal";
-        public const string DISTRITO_HEADER = "Distrito";
-        public const string CANTON_HEADER = "Canton";
+        public const string DISTRITO_HEADER = "Nombre_distrito";
+        public const string CANTON_HEADER = "Nombre_canton";
 
 
         public Sucursal(string pProvincia,string pFarmacia)
@@ -45,8 +48,14 @@ namespace Phisel_Farmatica.Models
             NombreSucursal = (string)pTablaDatos[NOMBRE_SUCURSAL_HEADER];
             Distrito = (string)pTablaDatos[DISTRITO_HEADER];
             Canton = (string)pTablaDatos[CANTON_HEADER];
+            Id_sucursal = (int)pTablaDatos[ID_SUCURSAL];
 
-            return new { Nombre = NombreSucursal, Distrito = Distrito, Canton = Canton };
+            return new {
+                Nombre = NombreSucursal,
+                Distrito = Distrito,
+                Canton = Canton,
+                IdSucursal = Id_sucursal
+            };
         }
 
         protected override List<SqlParameter> obtenerParametrosObtencion()

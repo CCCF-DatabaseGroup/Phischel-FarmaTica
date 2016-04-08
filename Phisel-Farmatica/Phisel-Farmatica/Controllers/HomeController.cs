@@ -130,6 +130,37 @@ namespace Phisel_Farmatica.Controllers
 
         }
 
+        public JsonResult obtenerListadeProductosdePedido(int PidPedido)
+        {
+            if (Session[ID_USUARIO] == null)
+            {
+                return Json(new { }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                int UserId = (int)Session[ID_USUARIO];
+                Pedido pedido = new Pedido(UserId);
+                List<object> toReturn = pedido.obtenerIterativamente().ToList();
+                return Json(toReturn, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        [HttpPost]
+        public JsonResult obtenerDependientes(int pIdSucursal)
+        {
+            if (Session[ID_USUARIO] == null)
+            {
+                return Json(new { }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                Dependiente dependiente = new Dependiente(pIdSucursal);
+                List<object> toReturn = dependiente.obtenerIterativamente().ToList();
+                return Json(toReturn, JsonRequestBehavior.AllowGet);
+            }
+
+        }
 
 
     }

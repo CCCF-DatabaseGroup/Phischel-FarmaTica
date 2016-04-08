@@ -24,7 +24,7 @@
                     <td>{{pedido.Nickname}}, {{pedido.NombreCliente}} {{pedido.ApellidoCliente}}</td>
                     <td>&cent; {{pedido.AlCobro}}</td>
                     <td>{{pedido.HoraYFecha}}</td>
-                    <td><a href="#" class="btn btn-success center-block"><span class="glyphicon glyphicon-check"></span>Facturar</a></td>
+                    <td><a href="#" class="btn btn-success center-block" data-toggle="modal" data-target="#VerProductosDePedido" ng-click="obtenerListadeProductosdePedido(pedido)"><span class="glyphicon glyphicon-check"></span>Facturar</a></td>
                 </tr>
             </tbody>
         </table>
@@ -35,4 +35,58 @@
             <li><a href="#" ng-repeat="pagina in paginas">{{pagina.Numero}}</a></li>
         </ul>
     </div>
+
+
+
+
+
+    <!-- Modal -->
+    <div id="VerProductosDePedido" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Este es un modal emergente que se encarga de solicitar los datos del usuario para que pueda logearse-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <!--Este es el titulo del modal emergente-->
+                    <h4 class="modal-title">Factura</h4>
+                </div>
+
+                <div class="modal-body">
+                    
+                    <ul>
+                        <li ng-repeat="productoL in ListadeProductosdePedido">
+                            <b>Nombre del producto: </b>{{productoL.Nombre}}<br />
+                            <b> Precio: </b> &cent; {{productoL.Precio}}<br />
+
+                            <b> Descripcion del producto: </b> {{productoL.Descripcion}}<br />
+                            <b> Requiere prescripcion: </b>{{productoL.Prescripcion}}<br />
+                            <b> Cantidad: </b>{{productoL.Cantidad}}<br />
+                            <b> Cantidad a comprar</b> {{productoL.CantidadAComprar}}<br />
+
+                        </li>
+                    </ul>
+
+
+                </div>
+                <!--Este es el footer donde el boton close cierra el modal-->
+                <div class="modal-footer">
+                    <!--Este boton cierra el modal-->
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
 </div>
+
+
+
+
+
+
+
+

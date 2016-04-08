@@ -53,11 +53,11 @@
             <tbody>
                 <!--Es la lista de pedidos ordenada por hora-->
                 <tr ng-repeat="empleado in empleados" ng-class="obtenerClaseEmpleado($index)" ng-click="asignarEmpleadoSeleccionado($index)">
-                    <td>{{empleado.IdEmpleado}}</td>
+                    <td>{{empleado.Id_dependiente}}</td>
                     <td>{{empleado.Cedula}}</td>
-                    <td>{{empleado.NombreEmpleado}} {{empleado.ApellidoEmpleado}}</td>
-                    <td>{{empleado.NumeroTelefonico}}</td>
-                    <td>&cent; {{empleado.Salario}}</td>
+                    <td>{{empleado.Nombre_persona}} {{empleado.Apellido1}}</td>
+                    <td>{{empleado.Telefono_persona}}</td>
+                    <td>&cent; {{empleado.Salario_dependiente}}</td>
                 </tr>
             </tbody>
         </table>

@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Phisel_Farmatica.Models
 {
-    public class ProductoSucusal:DatabaseConnectorObject
+    public class ProductoSucursal:DatabaseConnectorObject
     {
         public int _IdSucursal { set; get; }
         public decimal _Costo { set; get; }

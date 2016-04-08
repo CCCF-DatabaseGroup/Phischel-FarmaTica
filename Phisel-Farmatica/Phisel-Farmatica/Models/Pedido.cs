@@ -22,7 +22,7 @@ namespace Phisel_Farmatica.Models
         public int _IdPedido { get; set; }
         public DateTime _Fecha_Hora_Ordenado { get; set; }
         public DateTime _Fecha_Hora_Requerido { get; set; }
-        public string _Estado_Pedido { get; set; }
+        public int _Estado_Pedido { get; set; }
         public int _IdEmpleado { get; set; }
         public string _Nickname { get; set; }
         public string _NombreCliente { get; set; }
@@ -68,7 +68,7 @@ namespace Phisel_Farmatica.Models
             tmp2 = (TimeSpan)pTablaDatos[HEADER_HORA_REQUERIDA];
             _Fecha_Hora_Requerido = _Fecha_Hora_Requerido.AddHours(tmp2.Hours);
             _Fecha_Hora_Requerido = _Fecha_Hora_Requerido.AddMinutes(tmp2.Minutes);
-            _Estado_Pedido = (bool)pTablaDatos[HEADER_ESTADO_PEDIDO]?"Entregado":"No entregado";
+            _Estado_Pedido = (int)pTablaDatos[HEADER_ESTADO_PEDIDO];
             tmp = pTablaDatos[HEADER_NICKNAME];
             _Nickname = (tmp != null) ? (string)tmp :"";
             /*tmp = pTablaDatos[HEADER_NOMBRE_CLIENTE];

@@ -8,10 +8,22 @@ myApp.controller('adminController', function ($scope, $http) {
     $scope.provinciaSeleccionada = $scope.provincias[0].Nombre;
     $scope.empleadoSeleccionado = 0;
 
-    $scope.empleados = [
-        { IdEmpleado: 123, Cedula: 123, NombreEmpleado: "Thomas Alba", ApellidoEmpleado: "Edison", NumeroTelefonico: 1234, Salario: 7895 },
-        { IdEmpleado: 1203, Cedula: 1234, NombreEmpleado: "Nicholas", ApellidoEmpleado: "Tesla", NumeroTelefonico: 12345, Salario: 6000 }
-    ];
+
+
+    $scope.obtenerDependienteDeSucursal = function () {
+        console.log("Se llama a obtener la lista de dependientes de la sucursal ", $scope.sucursalSeleccionadaId);
+        $http.post('/Home/obtenerDependientes', { pIdSucursal: $scope.sucursalSeleccionadaId })
+            .success(function (result) {
+                console.log(result);
+                $scope.empleados = result;
+                if ($scope.empleados.length != 0)
+                    $scope.empleadoSeleccionado = empleados[0].Nombre_persona;
+            }).error(function (data) {
+                console.log("Fail");
+                return [];
+            });
+    };
+
 
 
     $scope.obtenerSucursales = function () {
@@ -20,7 +32,11 @@ myApp.controller('adminController', function ($scope, $http) {
             .success(function (result) {
                 console.log(result);
                 $scope.sucursales = result;
-                $scope.sucursalSeleccionada = sucursales[0].Nombre;
+                if ($scope.sucursales.length > 0) {
+                    $scope.sucursalSeleccionada = $scope.sucursales[0].Nombre;
+                    $scope.sucursalSeleccionadaId = $scope.sucursales[0].IdSucursal;
+                    $scope.obtenerDependienteDeSucursal();
+                }
             }).error(function (data) {
                 console.log("Fail");
                 return [];
@@ -55,6 +71,7 @@ myApp.controller('adminController', function ($scope, $http) {
     $scope.seleccionarSucursal = function (sucursal) {
         
         $scope.sucursalSeleccionada = sucursal.Nombre;
+        $scope.sucursalSeleccionadaId = sucursal.IdSucursal;
     };
 
 
@@ -69,11 +86,6 @@ myApp.controller('adminController', function ($scope, $http) {
     $scope.asignarEmpleadoSeleccionado = function (index) {
         $scope.empleadoSeleccionado = index;
     };
-
-
-
-
-
 
 
 
