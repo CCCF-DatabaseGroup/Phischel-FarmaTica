@@ -4,8 +4,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Phisel_Farmatica.Models;
 using System.Web.Script.Serialization;
+using Phisel_Farmatica.Models;
+
 namespace Phisel_Farmatica.Controllers
 {
     public class ProductController : Controller
@@ -150,6 +151,18 @@ namespace Phisel_Farmatica.Controllers
             return Json(productos, JsonRequestBehavior.AllowGet);
         }
 
+
+
+        public JsonResult obtenerTodosProducto()
+        {
+            Producto producto = new Producto();
+
+            List<object> productos = producto.obtenerTodos().ToList();
+            //sqlreader = doQuery("exec obtenerProductoDeSucursal '"+ Session[HomeController.FARMACIA] + "', '" + pSucursal + "', '" + pCategoria +"';");
+            return Json(productos, JsonRequestBehavior.AllowGet);
+        }
+
+
         /**
             actualizarProducto: Recibe la lista de las caracteristicas de un producto y las actualiza
             Retorna el siguiente formato Json
@@ -277,11 +290,31 @@ namespace Phisel_Farmatica.Controllers
             return Json(new { EstadoSolicitud = false }, JsonRequestBehavior.AllowGet);
         }
 
+
+        public JsonResult obtenerListaLaboratorio()
+        {
+            Laboratorio laboratorio = new Laboratorio();
+            List<object> laboratorios= laboratorio.obtenerIterativamente().ToList();
+            return Json(laboratorios, JsonRequestBehavior.AllowGet);
+        }
+
+
         public JsonResult estaFarmaticaActiva()
         {
             bool esFarmaticaActiva = false;
             if (HomeController.FARMATICA.Equals(Session[HomeController.FARMACIA])) esFarmaticaActiva = true;
             return Json(new { EstadoSolicitud = esFarmaticaActiva }, JsonRequestBehavior.AllowGet);
         }
+
+
+        public JsonResult test(List<int> ptest)
+        {
+            int obj = (int)ptest[0];
+            System.Diagnostics.Debug.WriteLine("testeando test...");
+            System.Diagnostics.Debug.WriteLine(ptest);
+
+            return Json(new { EstadoSolicitud = true }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

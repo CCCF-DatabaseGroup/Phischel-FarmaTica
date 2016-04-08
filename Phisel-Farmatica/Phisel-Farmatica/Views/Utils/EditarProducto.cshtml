@@ -1,5 +1,5 @@
 ﻿
-<div class="panel panel-default" ng-controller="productController">
+<div class="panel panel-default" ng-controller="productAdminController">
     <div class="panel-heading">
         <h4 class="panel-title">
             <a data-toggle="collapse" href="#editar_producto">Editar Producto</a>
@@ -10,8 +10,8 @@
             <br />
             <div>
                 <label for="producto_list">Seleccione el producto: </label>
-                <select class="form-control" id="producto_list">
-                    <option></option>
+                <select ng-init="obtenerTodosProducto()" class="form-control" id="producto_list">
+                    <option ng-click="setearProductoActivo(producto)" ng-repeat="producto in todo_productos">{{producto.Nombre}}</option>
 
                 </select>
 

@@ -1,20 +1,23 @@
 ﻿<div>
     <label for="nombre_producto">Nombre Producto: </label>
     <input ng-model="nombreProductoARegistrar" class="form-control" id="nombre_producto" type="text" />
+    <p class="login_message">{{nombreProductoError}}</p>
 </div>
 <div>
     <label for="categoria">Categoria: </label>
     <select class="form-control" id="categoria">
         <option ng-click="seleccionarCategoria(categoria,$index)" ng-repeat="categoria in tipo_producto">{{categoria.Nombre}}</option>
-
+        
     </select>
+    <p class="login_message">{{categoriaProductoError}}</p>
 </div>
 <div>
     <label for="laboratorio">Laboratorio: </label>
     <select ng-init="obtenerListaLaboratorio();" class="form-control" id="laboratorio">
-        <option ng-repeat="laboratorio in laboratorios">{{laboratorio.Nombre}}</option>
-
+        <option ng-click="setearIdLaboratorio(laboratorio);" ng-repeat="laboratorio in laboratorios">{{laboratorio.IdLaboratorio}} {{laboratorio.NombreLaboratorio}}</option>
+        
     </select>
+    <p class="login_message">{{laboratorioProductoError}}</p>
 </div>
 <div class="center-block">
     <label for="prescripcion" class="text-center form-inline">Prescripcion: </label>

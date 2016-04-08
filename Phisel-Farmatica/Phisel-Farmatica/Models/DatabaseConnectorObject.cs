@@ -15,12 +15,12 @@ namespace Phisel_Farmatica.Models
 
 
         private SqlConnection SqlConexion;
-        private DataTable TablaDatos;
+        protected DataTable TablaDatos;
 
         protected List<SqlParameter> _Parametros;
 
 
-        private void abrirConeccion(string pProcedimiento,List<SqlParameter> pParametros)
+        protected void abrirConeccion(string pProcedimiento,List<SqlParameter> pParametros)
         {
 
 

@@ -17,13 +17,18 @@ namespace Phisel_Farmatica.Models
 
          public const string PROCEDIMIENTO_INSERCION = " ";
 
-       
+
+        public const string HEADER_ID_LABORATORIO = "Id_laboratorio";
+        public const string HEADER_NOMBRE_LABORATORIO = "Nombre_laboratorio";
+
+
         public const string PARAMETRO_ID_LABORATORIO = "@IdLaboratorio";
 
 
         protected override object contextualizar(DataRow pTablaDatos)
         {
-
+            _IdLaboratorio = (int)pTablaDatos[HEADER_ID_LABORATORIO];
+            _NombreLaboratorio = (string)pTablaDatos[HEADER_NOMBRE_LABORATORIO];
             return new {
                 IdLaboratorio = _IdLaboratorio,
                 NombreLaboratorio = _NombreLaboratorio
@@ -39,10 +44,8 @@ namespace Phisel_Farmatica.Models
 
         protected override List<SqlParameter> obtenerParametrosObtencion()
         {
-
-            
-
-            throw new NotImplementedException();
+            _Parametros = new List<SqlParameter>();
+            return _Parametros;
         }
 
         protected override string obtenerProcedimientoDeInsercion()

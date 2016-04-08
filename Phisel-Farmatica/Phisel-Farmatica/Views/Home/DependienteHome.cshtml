@@ -1,7 +1,7 @@
 ﻿<div ng-controller="dependienteController">
     <br />
     <h1 class="subtitulo">Pedidos</h1>
-    <a class="btn btn-primary center-block"><span class="glyphicon glyphicon-refresh" /> Recargar</a>
+    <a ng-click="obtenerPedidos()" class="btn btn-primary center-block"><span class="glyphicon glyphicon-refresh" /> Recargar</a>
     <div class="table-responsive">
 
         <br />
@@ -20,10 +20,10 @@
             <tbody>
                 <!--Es la lista de pedidos ordenada por hora-->
                 <tr ng-repeat="pedido in pedidos">
-                    <td>{{pedido.Codigo}}</td>
-                    <td>{{pedido.NombreCliente}} {{pedido.ApellidoCliente}}</td>
+                    <td>{{pedido.IdPedido}}</td>
+                    <td>{{pedido.Nickname}}, {{pedido.NombreCliente}} {{pedido.ApellidoCliente}}</td>
                     <td>&cent; {{pedido.AlCobro}}</td>
-                    <td>{{pedido.HoraDeCompra}}</td>
+                    <td>{{pedido.HoraYFecha}}</td>
                     <td><a href="#" class="btn btn-success center-block"><span class="glyphicon glyphicon-check"></span>Facturar</a></td>
                 </tr>
             </tbody>

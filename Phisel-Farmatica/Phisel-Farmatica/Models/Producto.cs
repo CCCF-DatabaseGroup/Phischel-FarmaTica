@@ -11,9 +11,10 @@ namespace Phisel_Farmatica.Models
     {
 
         public const string PROCEDIMIENTO = "obtenerProductoDeSucursal";
+        public const string PROCEDIMIENTO_OBTENER_TODOS = "mostrarTodosLosProductos";
         public const string PROCEDIMIENTO_OBTENCION_POR_ID = "obtenerProductoDeSucursalPorId";
         public const string PROCEDIMIENTO_INSERCION = "insertarProducto";
-        public const string PROCEDIMIENTO_EDICION = "obtenerProductoDeSucursalPorId";
+        public const string PROCEDIMIENTO_EDICION = "actualizarProducto";
         public const string NOMBRE_PRODUCTO = "Nombre_producto";
         public const string DESCRIPCION_PRODUCTO = "Descripcion";
         public const string PRESCRIPCION_PRODUCTO = "Prescripcion";
@@ -46,6 +47,11 @@ namespace Phisel_Farmatica.Models
         public int _Cantidad { get; set; }
         public decimal? _Precio { get; set; }
 
+
+        public Producto()
+        {
+
+        }
 
         public Producto(string pFarmacia, string pSucursal, string pCategoria)
         {
@@ -111,6 +117,9 @@ namespace Phisel_Farmatica.Models
             };
         }
 
+
+
+
         protected void obtenerParametrosObtencionSinfiltro()
         {
             _Parametros = new List<SqlParameter>();
@@ -136,6 +145,24 @@ namespace Phisel_Farmatica.Models
             _Parametros.Add(pNombreCategoria);
         }
 
+        public IEnumerable<object> obtenerTodos()
+        {
+            _Parametros = new List<SqlParameter>();
+            _ProcedimientoActivo = PROCEDIMIENTO_OBTENER_TODOS;
+            List<object> toReturn = new  List<object>();
+            abrirConeccion(_ProcedimientoActivo, _Parametros);
+            foreach (DataRow row in TablaDatos.Rows)
+            {
+                toReturn.Add(new
+                {
+                    IdProducto = (int)row[ID_PRODUCTO],
+                    Nombre = (string)row[NOMBRE_PRODUCTO]
+                });
+            }
+            return toReturn;
+        }
+
+
 
         public override bool insertar()
         {
@@ -159,8 +186,9 @@ namespace Phisel_Farmatica.Models
         public override bool editar()
         {
             _Parametros = new List<SqlParameter>();
-            _Parametros.Add(new SqlParameter(PARAM_ID_LABORATORIO_PRODUCTO, _IdLaboratorio));
+            _Parametros.Add(new SqlParameter(ID_PRODUCTO_PARAM, _IdProducto));
             _Parametros.Add(new SqlParameter(PARAM_NOMBRE_PRODUCTO, _Nombre));
+            _Parametros.Add(new SqlParameter(PARAM_ID_LABORATORIO_PRODUCTO, _IdLaboratorio));
             _Parametros.Add(new SqlParameter(PARAM_PRESCRIPCION_PRODUCTO, _Prescripcion));
             _Parametros.Add(new SqlParameter(PARAM_ID_CATEGORIA_PRODUCTO, _IdCategoria));
             _Parametros.Add(new SqlParameter(PARAM_DESCRIPCION_PRODUCTO, _Descripcion));
@@ -214,7 +242,7 @@ namespace Phisel_Farmatica.Models
 
         protected override string obtenerProcedimientoDeInsercion()
         {
-            throw new NotImplementedException();
+            return "";// throw new NotImplementedException();
         }
 
 
