@@ -16,8 +16,8 @@ namespace Phisel_Farmatica.Models
         public const string PROCEDIMIENTO_SALIDA = "";
         public const string PROCEDIMIENTO_INSERCION = "";
 
-
-        public const string PARAMETRO_ID_LABORATORIO = "@IdLaboratorio";
+        public  string _mostrarLaboratorios { get; set; }
+    public const string PARAMETRO_ID_LABORATORIO = "@IdLaboratorio";
 
 
         protected override object contextualizar(DataRow pTablaDatos)
