@@ -159,10 +159,16 @@ namespace Phisel_Farmatica.Models
         public override bool editar()
         {
             _Parametros = new List<SqlParameter>();
-            _Parametros.Add(new SqlParameter());
-            _Parametros.Add(new SqlParameter());
-            _Parametros.Add(new SqlParameter());
-            _Parametros.Add(new SqlParameter());
+            _Parametros.Add(new SqlParameter(PARAM_ID_LABORATORIO_PRODUCTO, _IdLaboratorio));
+            _Parametros.Add(new SqlParameter(PARAM_NOMBRE_PRODUCTO, _Nombre));
+            _Parametros.Add(new SqlParameter(PARAM_PRESCRIPCION_PRODUCTO, _Prescripcion));
+            _Parametros.Add(new SqlParameter(PARAM_ID_CATEGORIA_PRODUCTO, _IdCategoria));
+            _Parametros.Add(new SqlParameter(PARAM_DESCRIPCION_PRODUCTO, _Descripcion));
+            SqlParameter pExito = new SqlParameter();
+            pExito.ParameterName = PARAM_EXITO;
+            pExito.SqlDbType = SqlDbType.Bit;
+            pExito.Direction = ParameterDirection.Output;
+            _Parametros.Add(pExito);
             bool aRetornar = conexionGenerica(PROCEDIMIENTO_EDICION, _Parametros);
 
             return aRetornar;

@@ -128,7 +128,7 @@ namespace Phisel_Farmatica.Controllers
             la funcion matematica pProductoIntervalo=10*k+1, con k un numero entero positivo
         */
         [HttpPost]
-        public JsonResult obtenerProducto(string pSucursal,string pCategoria)
+        public JsonResult obtenerProductoEnSucursal(string pSucursal,string pCategoria)
         {
             /**
             Formato Json:
@@ -159,7 +159,7 @@ namespace Phisel_Farmatica.Controllers
             La primera para actualizacion exitosa y la segunda para actualizacion fallida
         */
         [HttpPost]
-        public JsonResult actualizarProducto(int pIdProducto,string pNombreProducto, int pIdCategoria, int pIdLaboratorio, bool pPreescripcion, string pDescripcion)
+        public JsonResult editarProducto(int pIdProducto,string pNombreProducto, int pIdCategoria, int pIdLaboratorio, bool pPreescripcion, string pDescripcion)
         {
             Producto producto = new Producto(pIdProducto, pNombreProducto, pIdCategoria, pIdLaboratorio, pPreescripcion, pDescripcion);
             producto.editar();

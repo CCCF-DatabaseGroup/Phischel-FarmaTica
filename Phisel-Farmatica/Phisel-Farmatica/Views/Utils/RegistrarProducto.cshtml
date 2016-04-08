@@ -22,7 +22,7 @@
             </div>
             <div>
                 <label for="laboratorio">Laboratorio: </label>
-                <select class="form-control" id="laboratorio">
+                <select ng-init="obtenerListaLaboratorio();" class="form-control" id="laboratorio">
                     <option ng-repeat="laboratorio in laboratorios">{{laboratorio.Nombre}}</option>
 
                 </select>
@@ -30,14 +30,14 @@
             <div class="center-block">
                 <label for="prescripcion" class="text-center form-inline">Prescripcion: </label>
                 <ul id="prescripcion" class="nav nav-pills" style="width:175px;">
-                    <li><a href="#">Si</a></li>
-                    <li><a href="#">No</a></li>
+                    <li><a data-toggle="pill" ng-click="necesitaPrescripcion(true)" href="#">Si</a></li>
+                    <li class="active"><a ng-click="necesitaPrescripcion(false)" data-toggle="pill" href="#">No</a></li>
                     <!--Si se desean agregar mas botones, para futuras alianzas con otras farmacias pueden insertarse aca-->
                 </ul>
             </div>
             <div>
                 <label for="descripcion">Descripcion: </label>
-                <textarea class="form-control" id="descripcion" rows="2" cols="20"></textarea>
+                <textarea ng-model="descripcionProducto" class="form-control" id="descripcion" rows="2" cols="20"></textarea>
             </div>
             <div class="center-block">
                 <br />
