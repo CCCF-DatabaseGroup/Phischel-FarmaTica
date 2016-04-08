@@ -12,12 +12,13 @@ namespace Phisel_Farmatica.Models
     {
         public int _IdLaboratorio { get; set; }
         public string _NombreLaboratorio { get; set; }
+        
+        public const string PROCEDIMIENTO_SALIDA = "mostrarLaboratorios";
 
-        public const string PROCEDIMIENTO_SALIDA = "";
-        public const string PROCEDIMIENTO_INSERCION = "";
+         public const string PROCEDIMIENTO_INSERCION = " ";
 
-        public  string _mostrarLaboratorios { get; set; }
-    public const string PARAMETRO_ID_LABORATORIO = "@IdLaboratorio";
+       
+        public const string PARAMETRO_ID_LABORATORIO = "@IdLaboratorio";
 
 
         protected override object contextualizar(DataRow pTablaDatos)
@@ -26,7 +27,7 @@ namespace Phisel_Farmatica.Models
             return new {
                 IdLaboratorio = _IdLaboratorio,
                 NombreLaboratorio = _NombreLaboratorio
-            };
+        };
         }
 
         protected override List<SqlParameter> obtenerParametrosInsercion()
@@ -51,7 +52,7 @@ namespace Phisel_Farmatica.Models
 
         protected override string obtenerProcedimientoDeObtencion()
         {
-            throw new NotImplementedException();
+            return PROCEDIMIENTO_SALIDA;
         }
     }
 }
