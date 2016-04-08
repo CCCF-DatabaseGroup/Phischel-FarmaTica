@@ -1,5 +1,5 @@
 ﻿
-<div class="panel panel-default" ng-controller="adminController">
+<div class="panel panel-default" ng-controller="productController">
     <div class="panel-heading">
         <h4 class="panel-title">
             <a data-toggle="collapse" href="#editar_producto">Editar Producto</a>
@@ -38,18 +38,18 @@
             <div class="center-block">
                 <label for="prescripcion" class="text-center form-inline">Prescripcion: </label>
                 <ul id="prescripcion" class="nav nav-pills" style="width:175px;">
-                    <li><a href="#">Si</a></li>
-                    <li><a href="#">No</a></li>
+                    <li><a data-toggle="pill" ng-click="necesitaPrescripcion(true)" href="#">Si</a></li>
+                    <li class="active"><a ng-click="necesitaPrescripcion(false)" data-toggle="pill" href="#">No</a></li>
                     <!--Si se desean agregar mas botones, para futuras alianzas con otras farmacias pueden insertarse aca-->
                 </ul>
             </div>
             <div>
                 <label for="descripcion">Descripcion: </label>
-                <textarea class="form-control" id="descripcion" rows="2" cols="20"></textarea>
+                <textarea ng-model="descripcionProducto"  class="form-control" id="descripcion" rows="2" cols="20"></textarea>
             </div>
             <div class="center-block">
                 <br />
-                <input class="btn btn-warning center-block" type="button" value="Editar" />
+                <input ng-click="editarProducto()" class="btn btn-warning center-block" type="button" value="Editar" />
             </div>
         </div>
         <div class="panel-footer"></div>

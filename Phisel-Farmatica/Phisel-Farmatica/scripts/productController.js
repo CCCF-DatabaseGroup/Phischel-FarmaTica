@@ -27,10 +27,15 @@ myApp.controller('productController', function ($scope, $http) {
     $scope.indiceItemSeleccionado = 0;
     //Representa el nombre de la provincia seleccionada inicial
     $scope.provinciaSeleccionada = $scope.provincias[0].Nombre;
+    //Es para verificar si requiere prescripcion
+    $scope.prescripcion = false;
+    //Es la lista de laboratorios;
+
     /**
     se obtienen las sucursales disponibles segun la provincia seleccionada, esta funcion es llamada por las funciones:
     activarProvincia y asignarFarmacia
     */
+
     $scope.obtenerSucursales = function () {
         console.log("=================================================================");
         console.log("Obtener Sucursales");
@@ -62,7 +67,7 @@ myApp.controller('productController', function ($scope, $http) {
     Esta funcion es llamada por las funciones seleccionarCategoria y seleccionarSucursal
     */
     $scope.obtenerproductos = function () {
-        $http.post('/Product/obtenerProducto', {
+        $http.post('/Product/obtenerProductoEnSucursal', {
             pSucursal: $scope.sucursalSeleccionada, pCategoria: $scope.categoriaProducto
         })
             .success(function (result) {
@@ -234,20 +239,69 @@ myApp.controller('productController', function ($scope, $http) {
 
     $scope.registrarProducto = function () {
 
-        console.log("llamada a -> obtener categoria");
-        //obtener las sucursales
+
+
+        console.log("llamada a -> registrar producto");
+        //registro producto
         $http.post('Product/registrarProducto', {
             pNombreProducto: $scope.nombreProductoARegistrar,
             pIdCategoria: $scope.tipo_producto[$scope.categoriaSeleccionada].IdCategoria,
-            pIdLaboratorio: 1,
-            pPreescripcion: false,
-            pDescripcion: ""
+            pIdLaboratorio: $scope.laboratorios.IdLaboratorio,
+            pPreescripcion: $scope.prescripcion,
+            pDescripcion: $scope.descripcionProducto
         })
             .success(function (result) {
                 console.log(result);
             }).error(function (data) {
                 console.log(data);
             });
-    }
+    };
+
+
+
+
+    $scope.editarProducto = function () {
+
+
+
+        console.log("llamada a -> editar producto");
+        //editar al producto
+        $http.post('Product/editarProducto', {
+            pNombreProducto: $scope.nombreProductoARegistrar,
+            pIdCategoria: $scope.tipo_producto[$scope.categoriaSeleccionada].IdCategoria,
+            pIdLaboratorio: $scope.laboratorios.IdLaboratorio,
+            pPreescripcion: $scope.prescripcion,
+            pDescripcion: $scope.descripcionProducto
+        })
+            .success(function (result) {
+                console.log(result);
+            }).error(function (data) {
+                console.log(data);
+            });
+    };
+
+
+    $scope.obtenerListaLaboratorio = function () {
+
+        console.log("llamada a -> obtener lista laboratorio");
+        //obtener la lista de laboratorios
+        $http.get('Product/obtenerListaLaboratorio')
+            .success(function (result) {
+                $scope.laboratorios = result;
+                console.log(result);
+            }).error(function (data) {
+                console.log(data);
+            });
+    };
+
+
+
+
+    $scope.necesitaPrescripcion = function (prescripcion) {
+        $scope.prescripcion = prescripcion;
+        console.log(prescripcion);
+    };
+
+
 
 });
