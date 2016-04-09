@@ -71,11 +71,11 @@ namespace Phisel_Farmatica.Models
             _Estado_Pedido = (int)pTablaDatos[HEADER_ESTADO_PEDIDO];
             tmp = pTablaDatos[HEADER_NICKNAME];
             _Nickname = (tmp != null) ? (string)tmp :"";
-            /*tmp = pTablaDatos[HEADER_NOMBRE_CLIENTE];
+            tmp = pTablaDatos[HEADER_NOMBRE_CLIENTE];
             _NombreCliente = (tmp != null) ? (string)tmp : ""; ;
             tmp = pTablaDatos[HEADER_APELLIDO_CLIENTE];
             _ApellidoCliente = (tmp != null) ? (string)tmp : ""; ;
-            */        
+            /**/        
             _Deuda = (decimal)pTablaDatos[HEADER_DEUDA];
 
             return new
@@ -85,6 +85,7 @@ namespace Phisel_Farmatica.Models
                 ApellidoCliente = _ApellidoCliente,
                 Nickname = _Nickname,
                 AlCobro = _Deuda,
+                Estado_Pedido = _Estado_Pedido,
                 HoraYFecha = _Fecha_Hora_Requerido.ToString()
             };
         }
