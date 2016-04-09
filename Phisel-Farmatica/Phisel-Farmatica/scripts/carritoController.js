@@ -53,6 +53,19 @@ myApp.controller('carritoController', function ($scope, $http) {
         $scope.SucursalProductoActivo = sucursalProducto;
     };
 
+    $scope.comprarCarrito = function (sucursalProducto, producto) {
+        $http.post('/Carrito/comprarCarrito', { pIdSucursal: "", pFecha_Hora_Requerido: "" , pHora_Requerido: "" })
+            .success(function (result) {
+                console.log(result);
+                $scope.sucursalesProductos = result;
+            }).error(function (data) {
+                console.log(data);
+                $scope.sucursalesProductos = [];
+            });
+    };
+
+    
+
     $scope.obtenerTotalCompra = function (SucursalProductoActivo) {
         console.log("Compra...");
         console.log(SucursalProductoActivo.ListaSucursal);
@@ -64,6 +77,8 @@ myApp.controller('carritoController', function ($scope, $http) {
             console.log("producto cantidad " + producto.CantidadAComprar);
         };
     };
+
+    console.log($scope.sucursalProducto);
 
 
 });

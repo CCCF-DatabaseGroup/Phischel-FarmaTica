@@ -72,6 +72,8 @@ myApp.controller('adminController', function ($scope, $http) {
         
         $scope.sucursalSeleccionada = sucursal.Nombre;
         $scope.sucursalSeleccionadaId = sucursal.IdSucursal;
+        $scope.obtenerDependienteDeSucursal();
+
     };
 
 

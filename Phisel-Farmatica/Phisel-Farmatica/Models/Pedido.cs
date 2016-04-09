@@ -20,8 +20,11 @@ namespace Phisel_Farmatica.Models
         //,SUM(Precio_pedido* Cantidad_pedido) AS Deuda
 
         public int _IdPedido { get; set; }
+        public int _IdCliente { get; set; }
+        public int _IdSucursal { get; set; }
         public DateTime _Fecha_Hora_Ordenado { get; set; }
         public DateTime _Fecha_Hora_Requerido { get; set; }
+        public TimeSpan _Hora_Requerido { get; set; }
         public int _Estado_Pedido { get; set; }
         public int _IdEmpleado { get; set; }
         public string _Nickname { get; set; }
@@ -31,8 +34,18 @@ namespace Phisel_Farmatica.Models
 
 
         public const string PARAM_ID_DEPENDIENTE = "@idDependiente";
-        public const string PROCEDIMIENTO_SOLICITAR_PEDIDOS = "solicitarLosPedidosDeUnaSucursalMedianteIdDependiente";
+        public const string PARAM_ID_PEDIDO = "@idPedido";
 
+        public const string PARAM_ID_USUARIO = "@idUsuario";
+        public const string PARAM_ID_SUCURSAL = "@idSucursal";
+        public const string PARAM_FECHA_REQUERIDA = "@FechaRequerido";
+        public const string PARAM_HORA_REQUERIDA = "@HoraRequerido";
+        public const string PARAM_NUMERO_PEDIDO_RETORNO = "@numeroPedido";
+
+
+        public const string PROCEDIMIENTO_SOLICITAR_PEDIDOS = "solicitarLosPedidosDeUnaSucursalMedianteIdDependiente";
+        public const string PROCEDIMIENTO_SIGUIENTE_ESTADO= "setearSiguienteEstadoPedido";
+        public const string PROCEDIMIENTO_INSERCION = "crearPedido";
 
         public const string HEADER_ID_PEDIDO = "Id_pedido";
         public const string HEADER_FECHA_REQUERIDA = "Fecha_requerido";
@@ -52,6 +65,20 @@ namespace Phisel_Farmatica.Models
         public Pedido(int pIdEmpleado )
         {
             _IdEmpleado = pIdEmpleado;
+        }
+
+
+        public Pedido(int pIdPedido, int pIdEmpleado)
+        {
+            _IdPedido = pIdPedido;
+        }
+
+        public Pedido(int pIdCliente, int pIdSucursal,DateTime pFecha_Hora_Requerido, TimeSpan Hora_Requerido)
+        {
+            _IdCliente = pIdCliente;
+            _IdSucursal = pIdSucursal;
+            _Fecha_Hora_Requerido = pFecha_Hora_Requerido;
+            _Hora_Requerido = Hora_Requerido;
         }
 
         protected override object contextualizar(DataRow pTablaDatos)
@@ -90,6 +117,36 @@ namespace Phisel_Farmatica.Models
             };
         }
 
+        public override bool insertar()
+        {
+            _Parametros = new List<SqlParameter>();
+            _Parametros.Add(new SqlParameter(PARAM_ID_USUARIO, _IdCliente));
+            _Parametros.Add(new SqlParameter(PARAM_ID_SUCURSAL, _IdSucursal));
+            _Parametros.Add(new SqlParameter(PARAM_FECHA_REQUERIDA, _Fecha_Hora_Requerido));
+            _Parametros.Add(new SqlParameter(PARAM_HORA_REQUERIDA, _Hora_Requerido));
+            SqlParameter pExito = new SqlParameter();
+            pExito.ParameterName = PARAM_NUMERO_PEDIDO_RETORNO;
+            pExito.SqlDbType = SqlDbType.Int;
+            pExito.Direction = ParameterDirection.Output;
+            _Parametros.Add(pExito);
+            bool aRetornar = conexionGenerica(PROCEDIMIENTO_INSERCION, _Parametros);
+            if (aRetornar) _IdPedido = (int)pExito.SqlValue;
+            return false;
+        }
+
+
+
+        public bool setearSiguienteEstadoPedido()
+        {
+            _Parametros = new List<SqlParameter>();
+            _Parametros.Add(new SqlParameter(PARAM_ID_PEDIDO, _IdPedido));
+            
+            bool aRetornar = conexionGenerica(PROCEDIMIENTO_SIGUIENTE_ESTADO, _Parametros);
+
+            return aRetornar;
+        }
+
+
         protected override List<SqlParameter> obtenerParametrosObtencion()
         {
 
@@ -116,7 +173,7 @@ namespace Phisel_Farmatica.Models
 
         protected override string obtenerProcedimientoDeInsercion()
         {
-            throw new NotImplementedException();
+            return PROCEDIMIENTO_INSERCION;
         }
     }
 }

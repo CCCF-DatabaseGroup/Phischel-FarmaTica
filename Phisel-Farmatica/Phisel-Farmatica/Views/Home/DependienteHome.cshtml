@@ -45,7 +45,7 @@
 
     <!-- Modal -->
     <div id="VerProductosDePedido" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
 
             <!-- Este es un modal emergente que se encarga de solicitar los datos del usuario para que pueda logearse-->
             <div class="modal-content">
@@ -73,8 +73,8 @@
                             <tr ng-repeat="productoL in ListadeProductosdePedido">
                                 <td>{{productoL.IdProducto}}</td>
                                 <td>{{productoL.Nombre}}</td>
-                                <td>{{productoL.CantidadAComprar}}</td>
-                                <td>&cent; {{ProductoL.AlCobro}}</td>
+                                <td>{{productoL.Cantidad}}</td>
+                                <td>&cent; {{productoL.Precio}}</td>
                                 <td>{{productoL.Prescripcion}}</td>
                             </tr>
                         </tbody>
@@ -85,6 +85,7 @@
                 <!--Este es el footer donde el boton close cierra el modal-->
                 <div class="modal-footer">
                     <!--Este boton cierra el modal-->
+                    <button ng-click="siguienteEtapaDePedido()" type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>

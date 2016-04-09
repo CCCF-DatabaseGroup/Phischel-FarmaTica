@@ -138,9 +138,9 @@ namespace Phisel_Farmatica.Controllers
             }
             else
             {
-                int UserId = (int)Session[ID_USUARIO];
-                Pedido pedido = new Pedido(UserId);
-                List<object> toReturn = pedido.obtenerIterativamente().ToList();
+                
+                ProductoPedido productopedido = new ProductoPedido(PidPedido);
+                List<object> toReturn = productopedido.obtenerIterativamente().ToList();
                 return Json(toReturn, JsonRequestBehavior.AllowGet);
             }
 
@@ -160,6 +160,15 @@ namespace Phisel_Farmatica.Controllers
                 return Json(toReturn, JsonRequestBehavior.AllowGet);
             }
 
+        }
+        [HttpPost]
+        public JsonResult siguienteEtapaDePedido(int pIdPedido)
+        {
+            Pedido pedido = new Pedido(pIdPedido,0);
+            if (pedido.setearSiguienteEstadoPedido()) {
+                return obtenerPedidos();
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
 

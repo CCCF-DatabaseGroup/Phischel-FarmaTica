@@ -96,6 +96,29 @@ namespace Phisel_Farmatica.Controllers
             return ObtenerCarrito();
         }
 
+        [HttpPost]
+        public JsonResult eliminarDelCarrito(string pSucursal)
+        {
+            if (pSucursal == null)
+            {
+                pSucursal = "";
+            }
+            object carrito = Session[HomeController.CARRITO];
+            if (carrito == null)
+            {
+                Session.Add(HomeController.CARRITO, new List<Producto>());
+                carrito = Session[HomeController.CARRITO];
+            }
+            foreach (Producto producto in ((List<Producto>)carrito))
+            {
+                if (pSucursal.Equals(producto._NombreSucursal))
+                {
+                    ((List<Producto>)carrito).Remove(producto);
+                }
+            }
+            return ObtenerCarrito();
+        }
+
 
         /**
             cambiarCantidadProductoEnCarrito: Cambia la cantidad del producto en el carrito
@@ -111,8 +134,15 @@ namespace Phisel_Farmatica.Controllers
          comprarCarrito los objetos del carrito, retorna la factura
         */
         [HttpPost]
-        public JsonResult comprarCarrito()
+        public JsonResult comprarCarrito(int pIdSucursal, DateTime pFecha_Hora_Requerido, TimeSpan pHora_Requerido)
         {
+            object tmp= Session[HomeController.ID_USUARIO];
+            if (tmp != null)
+            {
+                Pedido pedido = new Pedido((int)tmp, pIdSucursal, pFecha_Hora_Requerido, pHora_Requerido);
+                pedido.insertar();
+            }
+
             return Json(new { name = "" }, JsonRequestBehavior.AllowGet);
         }
 
